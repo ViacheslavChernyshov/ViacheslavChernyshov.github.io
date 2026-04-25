@@ -242,13 +242,13 @@
     }
 
     .hero {
-      padding: 72px 0 44px;
+      padding: 64px 0 38px;
     }
 
     .hero-grid {
       display: grid;
-      gap: 36px;
-      align-items: start;
+      gap: 32px;
+      align-items: center;
     }
 
     .hero-copy {
@@ -283,14 +283,15 @@
     }
 
     h1 {
-      font-size: clamp(2.35rem, 4.6vw, 4.2rem);
+      font-size: clamp(2.2rem, 4.1vw, 3.85rem);
+      line-height: 1.02;
       text-wrap: pretty;
     }
 
     .hero p {
-      margin: 24px 0 0;
+      margin: 20px 0 0;
       color: var(--muted);
-      max-width: 58ch;
+      max-width: 54ch;
       font-size: 1.02rem;
       line-height: 1.62;
       overflow-wrap: anywhere;
@@ -338,13 +339,13 @@
 
     .stats {
       display: grid;
-      gap: 14px;
-      margin-top: 34px;
+      gap: 12px;
+      margin-top: 28px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .stat {
-      padding: 16px 18px;
+      padding: 14px 16px;
       border-radius: 18px;
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
@@ -359,15 +360,15 @@
 
     .stat span {
       display: block;
-      margin-top: 6px;
+      margin-top: 4px;
       color: var(--muted);
     }
 
     .hero-panel {
       width: 100%;
-      max-width: 530px;
+      max-width: 510px;
       margin-left: auto;
-      padding: 28px;
+      padding: 24px;
       border-radius: 28px;
       border: 1px solid var(--line);
       background:
@@ -378,12 +379,12 @@
 
     .signal-board {
       display: grid;
-      gap: 18px;
+      gap: 16px;
     }
 
     .signal-row {
       display: grid;
-      gap: 18px;
+      gap: 16px;
     }
 
     .signal-card,
@@ -396,7 +397,7 @@
 
     .signal-card {
       height: 100%;
-      padding: 24px;
+      padding: 22px;
     }
 
     .signal-card strong,
@@ -412,9 +413,9 @@
     .signal-stack p,
     .signal-node span {
       display: block;
-      margin-top: 10px;
+      margin-top: 8px;
       color: var(--muted);
-      font-size: 0.98rem;
+      font-size: 0.96rem;
       line-height: 1.55;
       overflow-wrap: anywhere;
     }
@@ -423,7 +424,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 18px;
+      margin-top: 14px;
     }
 
     .chip,
@@ -460,7 +461,7 @@
     }
 
     .signal-stack {
-      padding: 24px;
+      padding: 22px;
       background:
         radial-gradient(circle at top left, rgba(77, 162, 255, 0.1), transparent 28%),
         rgba(255, 255, 255, 0.03);
@@ -468,13 +469,13 @@
 
     .signal-grid {
       display: grid;
-      gap: 16px;
-      margin-top: 20px;
+      gap: 14px;
+      margin-top: 18px;
     }
 
     .signal-node {
-      min-height: 142px;
-      padding: 18px;
+      min-height: 122px;
+      padding: 16px;
       background: rgba(255, 255, 255, 0.04);
     }
 
@@ -677,26 +678,31 @@
       }
 
       .header-inner {
-        grid-template-columns: auto 1fr;
+        grid-template-columns: 1fr;
         gap: 14px;
       }
 
       .nav {
-        grid-column: 1 / -1;
-        justify-content: flex-start;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 8px;
+        overflow: visible;
       }
 
       .lang-switcher {
-        justify-self: end;
+        justify-self: stretch;
+        justify-content: center;
+        width: 100%;
       }
 
       .hero {
-        padding-top: 48px;
+        padding-top: 44px;
       }
 
       h1 {
-        font-size: clamp(1.95rem, 11vw, 3rem);
-        max-width: 9.5ch;
+        font-size: clamp(1.85rem, 9.2vw, 2.75rem);
+        max-width: 11.5ch;
         overflow-wrap: anywhere;
       }
 
@@ -740,8 +746,8 @@
 
     @media (min-width: 768px) {
       .hero-grid {
-        grid-template-columns: minmax(0, 1.1fr) minmax(430px, 0.9fr);
-        gap: 42px;
+        grid-template-columns: minmax(0, 1.18fr) minmax(400px, 0.82fr);
+        gap: 34px;
         align-items: center;
       }
 
@@ -769,11 +775,11 @@
 
     @media (min-width: 1200px) {
       .hero {
-        padding-top: 82px;
+        padding-top: 74px;
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1.15fr) minmax(470px, 0.85fr);
+        grid-template-columns: minmax(0, 1.22fr) minmax(430px, 0.78fr);
       }
 
       .signal-grid {
@@ -1248,7 +1254,10 @@
 
     const langButtons = Array.from(document.querySelectorAll(".lang-switcher button"));
     const savedLang = localStorage.getItem("site-lang");
-    const defaultLang = savedLang && translations[savedLang] ? savedLang : "ru";
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    const defaultLang = urlLang && translations[urlLang]
+      ? urlLang
+      : (savedLang && translations[savedLang] ? savedLang : "ru");
 
     function setText(key, value) {
       document.querySelectorAll(`[data-i18n="${key}"]`).forEach((node) => {

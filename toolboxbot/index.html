@@ -66,6 +66,7 @@
       --border: rgba(255, 255, 255, 0.08);
       --shadow: 0 20px 50px rgba(10, 14, 28, 0.45);
       --card-shadow: 0 24px 48px rgba(42, 171, 238, 0.16);
+      --header-shadow: 0 18px 42px rgba(5, 10, 22, 0.34);
       --radius: 16px;
       --container: 1220px;
     }
@@ -75,7 +76,7 @@
     }
 
     html {
-      scroll-padding-top: 96px;
+      scroll-padding-top: 120px;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -131,23 +132,30 @@
     }
 
     .container {
-      width: min(100% - 32px, var(--container));
+      width: calc(100% - 32px);
+      max-width: var(--container);
       margin: 0 auto;
     }
 
     .site-header {
       position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(18px);
-      background: rgba(15, 17, 23, 0.78);
-      border-bottom: 1px solid var(--border);
+      top: 14px;
+      z-index: 110;
+      padding: 14px 0 0;
+      background: transparent;
     }
 
     .header-inner {
       display: grid;
-      gap: 14px;
-      padding: 16px 0;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: rgba(9, 13, 24, 0.76);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--header-shadow);
     }
 
     .brand {
@@ -158,6 +166,7 @@
       font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: -0.02em;
+      white-space: nowrap;
     }
 
     .brand-mark {
@@ -171,10 +180,15 @@
     }
 
     .nav {
-      display: flex;
-      gap: 8px;
+      display: inline-flex;
+      justify-content: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       overflow-x: auto;
-      padding-bottom: 4px;
       scrollbar-width: none;
     }
 
@@ -182,7 +196,8 @@
       display: none;
     }
 
-    .nav a {
+    .nav a,
+    .lang-switcher button {
       flex: 0 0 auto;
       display: inline-flex;
       align-items: center;
@@ -191,23 +206,41 @@
       padding: 10px 16px;
       border-radius: 999px;
       color: var(--muted);
+      background: transparent;
       border: 1px solid transparent;
-      background: rgba(255, 255, 255, 0.02);
-      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      transition: transform 0.22s ease, color 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      cursor: pointer;
     }
 
     .nav a:hover,
     .nav a:focus-visible,
-    .nav a.is-active {
+    .nav a.is-active,
+    .lang-switcher button:hover,
+    .lang-switcher button:focus-visible,
+    .lang-switcher button.is-active {
       color: var(--text);
       border-color: rgba(42, 171, 238, 0.32);
       background: rgba(42, 171, 238, 0.12);
       outline: none;
     }
 
+    .lang-switcher {
+      display: inline-flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .lang-switcher button {
+      min-width: 52px;
+      padding-inline: 14px;
+    }
+
     .hero {
       position: relative;
-      padding: 44px 0 28px;
+      padding: 62px 0 32px;
     }
 
     .hero-grid {
@@ -349,6 +382,29 @@
     }
 
     @media (max-width: 767px) {
+      .site-header {
+        top: 10px;
+      }
+
+      .header-inner {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .nav {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 8px;
+        overflow: visible;
+      }
+
+      .lang-switcher {
+        justify-self: stretch;
+        justify-content: center;
+        width: 100%;
+      }
+
       .hero {
         padding-bottom: 18px;
       }
@@ -482,6 +538,11 @@
 
     .note-card strong {
       color: var(--text);
+    }
+
+    .note-lead {
+      margin: 0;
+      color: var(--muted);
     }
 
     .note-grid {
@@ -745,6 +806,11 @@
         transform: translateY(-2px);
       }
 
+      .nav a:hover,
+      .lang-switcher button:hover {
+        transform: translateY(-2px);
+      }
+
       .button-primary:hover,
       .button-primary:focus-visible {
         box-shadow: 0 22px 38px rgba(42, 171, 238, 0.34);
@@ -771,15 +837,6 @@
     }
 
     @media (min-width: 768px) {
-      .header-inner {
-        grid-template-columns: auto 1fr;
-        align-items: center;
-      }
-
-      .nav {
-        justify-content: flex-end;
-      }
-
       .hero {
         padding: 70px 0 40px;
       }
@@ -812,7 +869,7 @@
 
     @media (min-width: 1200px) {
       .hero {
-        padding-top: 84px;
+        padding-top: 92px;
       }
 
       .feature-grid {
@@ -862,6 +919,11 @@
         <a href="#faq">FAQ</a>
         <a href="#privacy">Приватность</a>
       </nav>
+      <div class="lang-switcher" aria-label="Выбор языка">
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="uk">UA</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
     </div>
   </header>
 
@@ -1316,8 +1378,7 @@
         </div>
 
         <aside class="note-card" aria-label="Технические особенности проекта">
-          <strong>Что выделяет проект по коду:</strong> ToolboxBot не просто выполняет отдельные операции, а строит
-          вокруг них полноценный продакшен-пайплайн.
+          <p class="note-lead"><strong>Что выделяет проект по коду:</strong> <span class="note-lead-text">ToolboxBot не просто выполняет отдельные операции, а строит вокруг них полноценный продакшен-пайплайн.</span></p>
           <div class="note-grid">
             <p><strong>Динамическое меню по типу контента.</strong> Бот распознаёт ссылку, фото, документ, аудио, видео, текст и стикеры, а затем показывает только допустимые действия.</p>
             <p><strong>Очередь задач с приоритетом.</strong> В проекте есть worker pool, rate limit, дедупликация одинаковых URL-задач и приоритеты для Lite/Pro.</p>
@@ -1570,18 +1631,18 @@
   </footer>
 
   <script>
-    const yearNode = document.getElementById('current-year');
+    const yearNode = document.getElementById("current-year");
     if (yearNode) {
       yearNode.textContent = String(new Date().getFullYear());
     }
 
-    const navLinks = Array.from(document.querySelectorAll('.nav a'));
+    const navLinks = Array.from(document.querySelectorAll(".nav a"));
     const sections = navLinks
-      .map((link) => document.querySelector(link.getAttribute('href')))
+      .map((link) => document.querySelector(link.getAttribute("href")))
       .filter(Boolean);
 
-    if ('IntersectionObserver' in window && navLinks.length && sections.length) {
-      const linkById = new Map(navLinks.map((link) => [link.getAttribute('href')?.slice(1), link]));
+    if ("IntersectionObserver" in window && navLinks.length && sections.length) {
+      const linkById = new Map(navLinks.map((link) => [link.getAttribute("href")?.slice(1), link]));
       const observer = new IntersectionObserver((entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
@@ -1591,18 +1652,666 @@
           return;
         }
 
-        navLinks.forEach((link) => link.classList.remove('is-active'));
+        navLinks.forEach((link) => link.classList.remove("is-active"));
         const activeLink = linkById.get(visible.target.id);
         if (activeLink) {
-          activeLink.classList.add('is-active');
+          activeLink.classList.add("is-active");
         }
       }, {
-        rootMargin: '-30% 0px -55% 0px',
+        rootMargin: "-30% 0px -55% 0px",
         threshold: [0.2, 0.45, 0.7]
       });
 
       sections.forEach((section) => observer.observe(section));
     }
+
+    const metaNodes = {
+      description: document.querySelector('meta[name="description"]'),
+      ogTitle: document.querySelector('meta[property="og:title"]'),
+      ogDescription: document.querySelector('meta[property="og:description"]'),
+      ogLocale: document.querySelector('meta[property="og:locale"]'),
+      ogImageAlt: document.querySelector('meta[property="og:image:alt"]'),
+      twitterTitle: document.querySelector('meta[name="twitter:title"]'),
+      twitterDescription: document.querySelector('meta[name="twitter:description"]'),
+      twitterImageAlt: document.querySelector('meta[name="twitter:image:alt"]')
+    };
+
+    const pageNodes = {
+      skipLink: document.querySelector(".skip-link"),
+      headerBrand: document.querySelector(".site-header .brand"),
+      footerBrand: document.querySelector(".site-footer .brand"),
+      nav: document.querySelector(".nav"),
+      navLinks,
+      langSwitcher: document.querySelector(".lang-switcher"),
+      hero: {
+        eyebrow: document.querySelector(".hero .eyebrow"),
+        title: document.querySelector(".hero h1"),
+        lead: document.querySelector(".hero-lead"),
+        buttons: Array.from(document.querySelectorAll(".hero .button-row .button")),
+        proofList: document.querySelector(".proof-list"),
+        proofItems: Array.from(document.querySelectorAll(".proof-list li")),
+        svg: document.querySelector(".hero-visual svg"),
+        svgTexts: Array.from(document.querySelectorAll(".hero-visual svg text"))
+      },
+      functions: {
+        eyebrow: document.querySelector("#functions .section-header .eyebrow"),
+        title: document.querySelector("#functions .section-header h2"),
+        text: document.querySelector("#functions .section-header p:last-of-type"),
+        cards: Array.from(document.querySelectorAll("#functions .feature-card")).map((card) => ({
+          title: card.querySelector("h2"),
+          body: card.querySelector("p")
+        })),
+        noteCard: document.querySelector(".note-card"),
+        noteLeadStrong: document.querySelector(".note-lead strong"),
+        noteLeadText: document.querySelector(".note-lead-text"),
+        noteParagraphs: Array.from(document.querySelectorAll(".note-grid p"))
+      },
+      workflow: {
+        eyebrow: document.querySelector("#workflow .section-header .eyebrow"),
+        title: document.querySelector("#workflow .section-header h2"),
+        text: document.querySelector("#workflow .section-header p:last-of-type"),
+        steps: Array.from(document.querySelectorAll(".workflow-list li")).map((item) => ({
+          title: item.querySelector("h3"),
+          body: item.querySelector("p")
+        })),
+        launchCommands: document.querySelector(".workflow-list .chip-list"),
+        commandPanelTitle: document.querySelector(".command-panel h2"),
+        commandCards: Array.from(document.querySelectorAll(".command-card")).map((card) => ({
+          body: card.querySelector("p")
+        }))
+      },
+      faq: {
+        eyebrow: document.querySelector("#faq .section-header .eyebrow"),
+        title: document.querySelector("#faq .section-header h2"),
+        text: document.querySelector("#faq .section-header p:last-of-type"),
+        items: Array.from(document.querySelectorAll(".faq-item")).map((item) => ({
+          question: item.querySelector("label"),
+          answer: item.querySelector(".faq-answer p")
+        }))
+      },
+      cta: {
+        title: document.querySelector("#cta h2"),
+        text: document.querySelector("#cta .cta-card > p"),
+        button: document.querySelector("#cta .button"),
+        microcopy: document.querySelector("#cta .microcopy")
+      },
+      footer: {
+        nav: document.querySelector(".footer-nav"),
+        navLinks: Array.from(document.querySelectorAll(".footer-nav a")),
+        stackTitle: document.querySelector("#stack-title"),
+        stackText: document.querySelector("#stack-title + p"),
+        privacyTitle: document.querySelector("#privacy-title"),
+        privacyTexts: Array.from(document.querySelectorAll("#privacy p"))
+      }
+    };
+
+    function getText(node) {
+      return node ? node.textContent.trim() : "";
+    }
+
+    function getHtml(node) {
+      return node ? node.innerHTML.trim() : "";
+    }
+
+    function captureState() {
+      return {
+        meta: {
+          lang: document.documentElement.lang,
+          locale: metaNodes.ogLocale?.getAttribute("content") || "ru_RU",
+          title: document.title,
+          description: metaNodes.description?.getAttribute("content") || "",
+          imageAlt: metaNodes.ogImageAlt?.getAttribute("content") || ""
+        },
+        aria: {
+          skip: getText(pageNodes.skipLink),
+          headerBrand: pageNodes.headerBrand?.getAttribute("aria-label") || "",
+          footerBrand: pageNodes.footerBrand?.getAttribute("aria-label") || "",
+          nav: pageNodes.nav?.getAttribute("aria-label") || "",
+          lang: pageNodes.langSwitcher?.getAttribute("aria-label") || "",
+          proof: pageNodes.hero.proofList?.getAttribute("aria-label") || "",
+          heroSvg: pageNodes.hero.svg?.getAttribute("aria-label") || "",
+          note: pageNodes.functions.noteCard?.getAttribute("aria-label") || "",
+          launchCommands: pageNodes.workflow.launchCommands?.getAttribute("aria-label") || "",
+          footerNav: pageNodes.footer.nav?.getAttribute("aria-label") || ""
+        },
+        header: {
+          navLinks: pageNodes.navLinks.map(getText)
+        },
+        hero: {
+          eyebrow: getText(pageNodes.hero.eyebrow),
+          title: getText(pageNodes.hero.title),
+          lead: getText(pageNodes.hero.lead),
+          buttons: pageNodes.hero.buttons.map(getText),
+          proofItems: pageNodes.hero.proofItems.map(getText),
+          svgTexts: pageNodes.hero.svgTexts.map(getText)
+        },
+        functions: {
+          eyebrow: getText(pageNodes.functions.eyebrow),
+          title: getText(pageNodes.functions.title),
+          text: getText(pageNodes.functions.text),
+          cardTitles: pageNodes.functions.cards.map((card) => getText(card.title)),
+          cardBodies: pageNodes.functions.cards.map((card) => getHtml(card.body)),
+          noteLeadStrong: getText(pageNodes.functions.noteLeadStrong),
+          noteLeadText: getText(pageNodes.functions.noteLeadText),
+          noteParagraphs: pageNodes.functions.noteParagraphs.map(getHtml)
+        },
+        workflow: {
+          eyebrow: getText(pageNodes.workflow.eyebrow),
+          title: getText(pageNodes.workflow.title),
+          text: getText(pageNodes.workflow.text),
+          stepTitles: pageNodes.workflow.steps.map((step) => getText(step.title)),
+          stepBodies: pageNodes.workflow.steps.map((step) => getHtml(step.body)),
+          commandPanelTitle: getText(pageNodes.workflow.commandPanelTitle),
+          commandBodies: pageNodes.workflow.commandCards.map((card) => getHtml(card.body))
+        },
+        faq: {
+          eyebrow: getText(pageNodes.faq.eyebrow),
+          title: getText(pageNodes.faq.title),
+          text: getText(pageNodes.faq.text),
+          questions: pageNodes.faq.items.map((item) => getText(item.question)),
+          answers: pageNodes.faq.items.map((item) => getHtml(item.answer))
+        },
+        cta: {
+          title: getText(pageNodes.cta.title),
+          text: getText(pageNodes.cta.text),
+          button: getText(pageNodes.cta.button),
+          microcopy: getText(pageNodes.cta.microcopy)
+        },
+        footer: {
+          navLinks: pageNodes.footer.navLinks.map(getText),
+          stackTitle: getText(pageNodes.footer.stackTitle),
+          stackText: getText(pageNodes.footer.stackText),
+          privacyTitle: getText(pageNodes.footer.privacyTitle),
+          privacyTexts: pageNodes.footer.privacyTexts.map(getHtml)
+        }
+      };
+    }
+
+    const baseState = captureState();
+
+    const translations = {
+      ru: baseState,
+      uk: {
+        meta: {
+          lang: "uk",
+          locale: "uk_UA",
+          title: "Telegram-бот для завантаження відео та конвертації файлів — ToolboxBot",
+          description: "ToolboxBot — Telegram-бот для завантаження відео з YouTube, TikTok та Instagram, конвертації файлів, транскрибації аудіо, QR-кодів і швидкого вивантаження у хмару.",
+          imageAlt: "ToolboxBot — Telegram-бот для завантаження відео, конвертації файлів і транскрибації аудіо"
+        },
+        aria: {
+          skip: "Перейти до вмісту",
+          headerBrand: "ToolboxBot — перейти до початку сторінки",
+          footerBrand: "ToolboxBot — перейти до початку",
+          nav: "Основна навігація",
+          lang: "Вибір мови",
+          proof: "Факти про проєкт",
+          heroSvg: "Схема: Telegram, обробка посилань і файлів, конвертація, транскрибація та хмарне вивантаження",
+          note: "Технічні особливості проєкту",
+          launchCommands: "Команди запуску",
+          footerNav: "Посилання футера"
+        },
+        header: {
+          navLinks: ["Функції", "Як працює", "FAQ", "Приватність"]
+        },
+        hero: {
+          eyebrow: "Telegram-бот на Python 3.11, aiogram 3, yt-dlp, ffmpeg і Whisper",
+          title: "Telegram-бот для завантаження відео та конвертації файлів",
+          lead: "ToolboxBot приймає посилання, файли, голосові та звичайний текст, сам визначає тип контенту й показує лише релевантні дії: завантажити відео, витягти аудіо, стиснути, конвертувати, розпізнати мовлення, зібрати PDF, порахувати хеш або вивантажити результат у хмару.",
+          buttons: ["Відкрити в Telegram →", "Усі проєкти →"],
+          proofItems: [
+            "Версія 0.47.0",
+            "10 мов інтерфейсу",
+            "YouTube, TikTok, Instagram, VK, X",
+            "Groq Whisper + faster-whisper",
+            "Черга задач із пріоритетом Lite/Pro"
+          ],
+          svgTexts: [
+            "Telegram",
+            "посилання, файл, текст, голосове",
+            "Динамічне меню",
+            "завантажити, конвертувати, стиснути",
+            "360p–4320p",
+            "MP3",
+            "Обробка в черзі",
+            "ffmpeg, Pillow, pypdf, Whisper",
+            "Groq",
+            "ffmpeg",
+            "Реальні дії з коду",
+            "завантажити відео",
+            "транскрипція",
+            "конвертація",
+            "PDF",
+            "стиснення та ZIP",
+            "хеші",
+            "QR",
+            "хмарне посилання"
+          ]
+        },
+        functions: {
+          eyebrow: "Що вміє ToolboxBot",
+          title: "Функції, які реально є в репозиторії",
+          text: "Нижче перелічені користувацькі дії, які бот справді показує в інтерфейсі на основі типу контенту. Джерело даних для цього лендингу — реальні handlers, services, action handlers, локалі та тести проєкту.",
+          cardTitles: [
+            "Завантажити відео",
+            "Завантажити аудіо",
+            "Транскрибувати аудіо та відео",
+            "Конвертувати відео",
+            "Витягти аудіо з відео",
+            "Стиснути файл",
+            "Конвертувати аудіо",
+            "Конвертувати зображення",
+            "Змінити розмір зображення",
+            "Перевести у PDF",
+            "Витягти текст",
+            "Порахувати хеш файлу",
+            "Порахувати хеш тексту",
+            "Створити QR-код",
+            "Скоротити посилання",
+            "Завантажити файл у хмару"
+          ],
+          cardBodies: [
+            "Завантажуйте відео з YouTube, TikTok, Instagram Reels, VK, X/Twitter і Facebook прямо в Telegram. Бот використовує <code>yt-dlp</code>, запитує якість і для Pro відкриває рівні 1440p, 2160p та 4320p.",
+            "Із медіапосилання можна забрати лише аудіодоріжку й одразу вибрати цільовий формат. У коді доступні <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> та <code>WAV</code>.",
+            "Голосові, аудіофайли, відео й навіть медіапосилання переводяться в текст. Пайплайн спочатку пробує Groq Whisper API, а при помилці чи ліміті автоматично перемикається на локальний <code>faster-whisper</code>.",
+            "Відео, відеоповідомлення та GIF-анімації можна перекодовувати через <code>ffmpeg</code>. Реально підтримуються формати <code>MP4</code>, <code>MKV</code>, <code>AVI</code> і <code>WEBM</code>.",
+            "Якщо потрібен лише звук, бот витягує аудіодоріжку з відеофайлу та зберігає її в потрібний формат. На виході доступні <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> та <code>WAV</code>.",
+            "Для фото, відео й аудіо використовується медіастиснення, а для документів, архівів, PDF, DOCX, TXT, CSV і бінарних файлів — ZIP-пакування з трьома рівнями. Це одна з найпрактичніших функцій Telegram-бота для файлів.",
+            "Аудіо й голосові повідомлення можна швидко перевести в інший формат. У проєкті задані <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> і <code>WAV</code> без зовнішніх GUI-програм.",
+            "Фото, статичні стікери та відеостікери можна переводити між <code>JPG</code>, <code>PNG</code>, <code>WEBP</code> і <code>BMP</code>. Для складних входів бот спочатку пробує Pillow, а потім fallback через <code>ffmpeg</code>.",
+            "Для фото та документів-зображень є швидкі сценарії <code>-10%</code>, <code>-20%</code>, <code>-30%</code> і <code>-50%</code>. На платних тарифах доступне ще й введення власного максимального розміру сторони.",
+            "Фото конвертуються в PDF через Pillow, а <code>TXT</code> і <code>DOCX</code> — через LibreOffice. Це зручно, коли потрібен простий Telegram-бот для PDF без встановлення редакторів на комп’ютер.",
+            "Бот витягує текст із <code>PDF</code>, <code>TXT</code>, <code>CSV</code> і <code>DOCX</code>. Для PDF використовується <code>pypdf</code>, для DOCX — розбір XML усередині файлу, а текстові документи читаються напряму.",
+            "Для будь-якого завантаженого файлу бот рахує контрольні суми <code>MD5</code>, <code>SHA1</code>, <code>SHA256</code> і <code>CRC32</code>. Зручно для перевірки цілісності архіву, документа, аудіо чи відео.",
+            "Звичайний текст без файла теж можна хешувати прямо в Telegram. У відповідь бот повертає той самий набір: <code>MD5</code>, <code>SHA1</code>, <code>SHA256</code> і <code>CRC32</code>.",
+            "Будь-яке посилання або текст можна перетворити на PNG із QR-кодом. Це працює для звичайних URL, медіапосилань, нотаток, коротких інструкцій і будь-яких рядків, які користувач надіслав у чат.",
+            "Якщо в повідомленні є URL, бот може пропустити його через TinyURL і повернути коротку адресу. Це окрема дія для розпізнаних посилань і звичайного тексту з <code>http</code>.",
+            "Будь-який файл можна вручну вивантажити на Litterbox або Pixeldrain. Додатково бот сам уміє віддавати посилання замість вкладення, якщо готовий результат не проходить ліміт Telegram за розміром."
+          ],
+          noteLeadStrong: "Що виділяє проєкт у коді:",
+          noteLeadText: "ToolboxBot не просто виконує окремі операції, а вибудовує навколо них повноцінний продакшен-пайплайн.",
+          noteParagraphs: [
+            "<strong>Динамічне меню за типом контенту.</strong> Бот розпізнає посилання, фото, документ, аудіо, відео, текст і стікери, а потім показує лише допустимі дії.",
+            "<strong>Черга задач із пріоритетом.</strong> У проєкті є worker pool, rate limit, дедуплікація однакових URL-задач і пріоритети для Lite/Pro.",
+            "<strong>YouTube cookies через Playwright.</strong> Адмін може завантажити <code>browser_state.json</code>, а бот прогріє й регіоналізує cookies для <code>yt-dlp</code>.",
+            "<strong>Безпека та чистка.</strong> Логи санітизуються, секрети можна брати з keyring ОС, а тимчасові директорії видаляються після обробки результату."
+          ]
+        },
+        workflow: {
+          eyebrow: "Користувацький флоу",
+          title: "Як працює ToolboxBot",
+          text: "Користувацький сценарій у коді дуже прямий: бот отримує контент, визначає тип, показує вбудовану клавіатуру дій, за потреби запитує якість, формат, розмір або рівень стискання й запускає задачу в черзі.",
+          stepTitles: [
+            "Запустіть бота й відкрийте базові команди",
+            "Надішліть посилання, файл, голосове або текст",
+            "Отримайте лише ті дії, які підходять цьому контенту",
+            "Якщо потрібно, виберіть якість, формат або параметри",
+            "Задача потрапляє в чергу, а ви бачите статус і результат"
+          ],
+          stepBodies: [
+            "Точка входу — команда <code>/start</code>. Для довідки є <code>/help</code> і <code>/features</code>, а стан тарифу та залишку дій показує <code>/status</code>.",
+            "У коді підтримуються повідомлення типів <code>text</code>, <code>photo</code>, <code>video</code>, <code>audio</code>, <code>voice</code>, <code>document</code>, <code>animation</code>, <code>sticker</code> і <code>video_note</code>. Для документів бот додатково визначає підтипи: відео, аудіо, зображення, PDF, текстовий документ або архів.",
+            "Для YouTube-посилання з’являться кнопки завантаження відео, аудіо, транскрибації, QR і скорочення URL. Для фото будуть доступні стискання, resize, конвертація, PDF, хеш і вивантаження, а для тексту — QR, хеш тексту та скорочення посилань.",
+            "Відео за посиланням отримує екран вибору якості, а конвертація та витягування аудіо показують список форматів. Для стискання є рівні <code>high</code>, <code>med</code>, <code>low</code>, а resize пропонує фіксовані відсотки й преміум-режим із власним розміром.",
+            "У процесі бот змінює статуси на <code>downloading</code>, <code>converting</code>, <code>compressing</code>, <code>transcribing</code>, <code>uploading</code> або <code>sending</code>. На виході приходить або готовий файл у чат, або зовнішнє посилання, якщо результат занадто великий для Telegram."
+          ],
+          commandPanelTitle: "Реальні команди, які доступні користувачу",
+          commandBodies: [
+            "Показує поточний тариф, залишок дій і дату завершення підписки, якщо вона активна.",
+            "Відкриває купівлю підписок Lite і Pro через Telegram Stars. Також працюють аліаси <code>/premium</code> і <code>/subscribe</code>.",
+            "Дозволяє підтримати проєкт фіксованою сумою або надіслати власний розмір донату через Stars.",
+            "Відкриває форму зворотного зв’язку з адміністраторами. У коді також є команди <code>/feedback</code> і <code>/contact</code>."
+          ]
+        },
+        faq: {
+          eyebrow: "Пошук і відповіді",
+          title: "Часті запитання",
+          text: "FAQ нижче зібрано лише з того, що реально реалізовано в проєкті: за маршрутами, форматами, лімітами, платними тарифами, зовнішніми вивантаженнями та обмеженнями самого коду.",
+          questions: [
+            "Як завантажити відео з YouTube через Telegram-бота?",
+            "Чи можна витягти аудіо з відео у MP3, OGG або WAV?",
+            "Як перетворити голосове повідомлення або аудіо на текст?",
+            "Які формати файлів підтримує бот?",
+            "Чи можна стиснути відео, фото, аудіо або ZIP прямо в Telegram?",
+            "Як зробити PDF із фото, TXT або DOCX?",
+            "Що робити, якщо файл більший за ліміт Telegram?",
+            "Чи підтримує бот TikTok, Instagram Reels, VK та X/Twitter?",
+            "Чи можна завантажити прямий ефір або live stream?",
+            "Чи є безкоштовний режим і платні тарифи Lite або Pro?"
+          ],
+          answers: [
+            "У ToolboxBot достатньо надіслати YouTube-посилання в чат, після чого бот визначить тип URL і покаже кнопку завантаження відео. Потім можна вибрати якість, а готовий результат прийде в Telegram як файл або як посилання, якщо розмір перевищує ліміт месенджера.",
+            "Так, код проєкту підтримує завантаження аудіо з медіапосилання та окреме витягування аудіодоріжки із завантаженого відео. Доступні формати в action handlers і клавіатурах — MP3, OGG, M4A, FLAC і WAV.",
+            "Бот уміє транскрибувати голосові, аудіофайли, відео й медіапосилання. За кодом спочатку пробується Groq Whisper API, а якщо він недоступний, перевищено ліміт або сталася помилка, бот перемикається на локальний faster-whisper.",
+            "У репозиторії явно описані відеоформати MP4, MKV, AVI, MOV, WMV, FLV, WEBM, M4V, TS і 3GP; аудіо MP3, OGG, M4A, FLAC, WAV, AAC, OPUS і WMA; зображення JPG, PNG, GIF, WEBP, BMP, TIFF і HEIC. Для документів бот розпізнає PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, CSV і RTF, а також архіви ZIP, RAR, 7Z, TAR, GZ, BZ2 і XZ.",
+            "Так, у ToolboxBot є окрема дія для стискання. Медіафайли обробляються через ffmpeg і Pillow, а документи й архіви бот пакує в ZIP з рівнями high, med і low.",
+            "Якщо надіслати фото, бот збирає PDF через Pillow. Для TXT і DOCX використовується LibreOffice в headless-режимі, тож ToolboxBot реально працює як Telegram-бот для переведення документа у PDF.",
+            "У проєкті є окремий upload service: маленькі файли надсилаються звичайним вкладенням, а великі можна вивантажити на Litterbox або Pixeldrain. Окрім ручного вивантаження, бот ще й сам уміє повертати зовнішнє посилання, якщо підсумковий результат не проходить Telegram-ліміт.",
+            "Так, ці платформи розпізнаються напряму в content detector, як і YouTube, Facebook, Reddit, Twitch, Vimeo, Rutube, Pinterest, SoundCloud і Threads. Для розпізнаних медіапосилань бот показує дії завантаження, транскрибації, QR-коду та скорочення URL.",
+            "Ні, прямі трансляції в коді спеціально блокуються до початку завантаження. Сервіс спочатку перевіряє поле <code>is_live</code> через метадані <code>yt-dlp</code> і повертає помилку, якщо посилання веде на лайв.",
+            "Так, у репозиторії є монетизація, покупки через Telegram Stars і тарифи Free, Lite та Pro. Команда <code>/buy</code> оформляє підписку, а <code>/status</code> показує поточний тариф, залишок дій і строк дії оплаченого плану."
+          ]
+        },
+        cta: {
+          title: "Спробуйте ToolboxBot у своєму Telegram уже зараз",
+          text: "Надішліть посилання, фото, документ або голосове повідомлення й подивіться, які дії бот запропонує саме для цього контенту.",
+          button: "Відкрити в Telegram →",
+          microcopy: "Без реєстрації, без встановлення."
+        },
+        footer: {
+          navLinks: ["Telegram", "Усі проєкти", "GitHub профіль", "Політика конфіденційності"],
+          stackTitle: "Стек бота",
+          stackText: "Python 3.11, aiogram 3, yt-dlp, ffmpeg, Pillow, pypdf, qrcode, Groq, faster-whisper, SQLite, aiohttp, Loguru, Playwright і keyring. У Dockerfile також явно налаштовані Node.js і Chromium для Playwright-сценаріїв.",
+          privacyTitle: "Політика конфіденційності",
+          privacyTexts: [
+            "За кодом проєкту вхідні та вихідні файли складаються у тимчасові каталоги й очищаються після завершення задачі. Це зменшує сліди обробки на сервері та утримує робочий простір бота в чистому стані.",
+            "Логи в ToolboxBot санітизуються: з них вирізаються токени, ключі, ID, usernames і секрети з URL. Додатково проєкт уміє читати секрети з keyring операційної системи, а не лише з <code>.env</code>."
+          ]
+        }
+      },
+      en: {
+        meta: {
+          lang: "en",
+          locale: "en_US",
+          title: "Telegram bot for video downloads and file conversion — ToolboxBot",
+          description: "ToolboxBot is a Telegram bot for downloading media from YouTube, TikTok, and Instagram, converting files, transcribing audio, generating QR codes, and uploading results to the cloud.",
+          imageAlt: "ToolboxBot — Telegram bot for video downloads, file conversion, and audio transcription"
+        },
+        aria: {
+          skip: "Skip to content",
+          headerBrand: "ToolboxBot — jump to the top of the page",
+          footerBrand: "ToolboxBot — jump to the top",
+          nav: "Main navigation",
+          lang: "Language selection",
+          proof: "Project facts",
+          heroSvg: "Diagram: Telegram, link and file processing, conversion, transcription, and cloud delivery",
+          note: "Project technical highlights",
+          launchCommands: "Launch commands",
+          footerNav: "Footer links"
+        },
+        header: {
+          navLinks: ["Features", "Workflow", "FAQ", "Privacy"]
+        },
+        hero: {
+          eyebrow: "Telegram bot built with Python 3.11, aiogram 3, yt-dlp, ffmpeg, and Whisper",
+          title: "Telegram bot for video downloads and file conversion",
+          lead: "ToolboxBot accepts links, files, voice messages, and plain text, detects the content type on its own, and only shows relevant actions: download video, extract audio, compress, convert, transcribe speech, build PDF, calculate hashes, or upload the result to the cloud.",
+          buttons: ["Open in Telegram →", "All projects →"],
+          proofItems: [
+            "Version 0.47.0",
+            "10 interface languages",
+            "YouTube, TikTok, Instagram, VK, X",
+            "Groq Whisper + faster-whisper",
+            "Task queue with Lite/Pro priority"
+          ],
+          svgTexts: [
+            "Telegram",
+            "link, file, text, voice",
+            "Dynamic menu",
+            "download, convert, compress",
+            "360p–4320p",
+            "MP3",
+            "Queued processing",
+            "ffmpeg, Pillow, pypdf, Whisper",
+            "Groq",
+            "ffmpeg",
+            "Real actions from the code",
+            "download video",
+            "transcription",
+            "conversion",
+            "PDF",
+            "compression + ZIP",
+            "hashes",
+            "QR",
+            "cloud link"
+          ]
+        },
+        functions: {
+          eyebrow: "What ToolboxBot can do",
+          title: "Features that really exist in the repository",
+          text: "Below are the user actions the bot actually shows in the interface based on content type. The source for this landing page is the real handlers, services, action handlers, locales, and tests from the project.",
+          cardTitles: [
+            "Download video",
+            "Download audio",
+            "Transcribe audio and video",
+            "Convert video",
+            "Extract audio from video",
+            "Compress file",
+            "Convert audio",
+            "Convert image",
+            "Resize image",
+            "Convert to PDF",
+            "Extract text",
+            "Calculate file hash",
+            "Calculate text hash",
+            "Create QR code",
+            "Shorten link",
+            "Upload file to the cloud"
+          ],
+          cardBodies: [
+            "Download videos from YouTube, TikTok, Instagram Reels, VK, X/Twitter, and Facebook right inside Telegram. The bot uses <code>yt-dlp</code>, asks for quality, and unlocks 1440p, 2160p, and 4320p tiers for Pro users.",
+            "You can pull only the audio track from a media link and choose the target format right away. The code exposes <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code>.",
+            "Voice messages, audio files, video, and even media links can be turned into text. The pipeline first tries the Groq Whisper API, then automatically falls back to local <code>faster-whisper</code> on errors or limits.",
+            "Videos, video notes, and GIF animations can be re-encoded through <code>ffmpeg</code>. The actually supported output formats are <code>MP4</code>, <code>MKV</code>, <code>AVI</code>, and <code>WEBM</code>.",
+            "If you only need sound, the bot extracts the audio track from a video file and saves it in the selected format. The output options are <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code>.",
+            "Photos, video, and audio use media compression, while documents, archives, PDF, DOCX, TXT, CSV, and binary files use ZIP packaging with three levels. It is one of the most practical Telegram bot features for file handling.",
+            "Audio files and voice messages can be quickly converted into another format. The project defines <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code> without relying on external GUI apps.",
+            "Photos, static stickers, and video stickers can be converted between <code>JPG</code>, <code>PNG</code>, <code>WEBP</code>, and <code>BMP</code>. For tricky inputs the bot first tries Pillow and then falls back to <code>ffmpeg</code>.",
+            "For photos and image documents there are quick resize presets of <code>-10%</code>, <code>-20%</code>, <code>-30%</code>, and <code>-50%</code>. Paid plans also unlock a custom maximum side size.",
+            "Photos are converted to PDF through Pillow, while <code>TXT</code> and <code>DOCX</code> go through LibreOffice. This is handy when you need a simple Telegram PDF bot without installing desktop editors.",
+            "The bot extracts text from <code>PDF</code>, <code>TXT</code>, <code>CSV</code>, and <code>DOCX</code>. It uses <code>pypdf</code> for PDF, XML parsing for DOCX, and direct reading for text documents.",
+            "For any uploaded file, the bot calculates <code>MD5</code>, <code>SHA1</code>, <code>SHA256</code>, and <code>CRC32</code> checksums. This is useful for validating archives, documents, audio, or video.",
+            "Plain text without a file can also be hashed right inside Telegram. The reply returns the same set: <code>MD5</code>, <code>SHA1</code>, <code>SHA256</code>, and <code>CRC32</code>.",
+            "Any link or text can be turned into a PNG QR code. This works for regular URLs, media links, notes, short instructions, and any string the user sends in chat.",
+            "If a message contains a URL, the bot can pass it through TinyURL and return a short link. This is a separate action for detected links and plain text containing <code>http</code>.",
+            "Any file can be manually uploaded to Litterbox or Pixeldrain. The bot can also return a link instead of an attachment when the final result exceeds Telegram size limits."
+          ],
+          noteLeadStrong: "What stands out in the code:",
+          noteLeadText: "ToolboxBot does not just perform isolated operations, it builds a full production pipeline around them.",
+          noteParagraphs: [
+            "<strong>Dynamic menu by content type.</strong> The bot recognizes links, photos, documents, audio, video, text, and stickers, then only shows valid actions.",
+            "<strong>Task queue with priority.</strong> The project includes a worker pool, rate limiting, duplicate URL task suppression, and Lite/Pro priorities.",
+            "<strong>YouTube cookies through Playwright.</strong> An admin can upload <code>browser_state.json</code>, and the bot will warm up and regionalize cookies for <code>yt-dlp</code>.",
+            "<strong>Security and cleanup.</strong> Logs are sanitized, secrets can come from the OS keyring, and temporary directories are removed after processing."
+          ]
+        },
+        workflow: {
+          eyebrow: "User flow",
+          title: "How ToolboxBot works",
+          text: "The user flow in code is very direct: the bot receives content, detects the type, shows an inline action keyboard, optionally asks for quality, format, size, or compression level, and starts a queued job.",
+          stepTitles: [
+            "Start the bot and open the basic commands",
+            "Send a link, file, voice message, or text",
+            "Get only the actions that fit this content",
+            "If needed, choose quality, format, or parameters",
+            "The job goes into the queue and you receive status plus result"
+          ],
+          stepBodies: [
+            "The entry point is <code>/start</code>. For help there are <code>/help</code> and <code>/features</code>, while <code>/status</code> shows your plan and remaining actions.",
+            "The code supports message types such as <code>text</code>, <code>photo</code>, <code>video</code>, <code>audio</code>, <code>voice</code>, <code>document</code>, <code>animation</code>, <code>sticker</code>, and <code>video_note</code>. For documents, the bot also detects subtypes like video, audio, image, PDF, text document, or archive.",
+            "A YouTube link will show buttons for video download, audio download, transcription, QR, and URL shortening. A photo can offer compression, resize, conversion, PDF, hash, and upload actions, while plain text exposes QR, text hash, and link shortening.",
+            "Link-based video gets a quality picker, while conversion and audio extraction show output formats. Compression offers <code>high</code>, <code>med</code>, and <code>low</code> levels, while resize includes fixed percentages plus a premium custom-size mode.",
+            "During processing the bot switches statuses to <code>downloading</code>, <code>converting</code>, <code>compressing</code>, <code>transcribing</code>, <code>uploading</code>, or <code>sending</code>. The final result is delivered either as a chat attachment or an external link if it is too large for Telegram."
+          ],
+          commandPanelTitle: "Real commands available to the user",
+          commandBodies: [
+            "Shows the current plan, remaining actions, and subscription end date when a plan is active.",
+            "Opens Lite and Pro subscription checkout through Telegram Stars. Aliases <code>/premium</code> and <code>/subscribe</code> also work.",
+            "Lets users support the project with a fixed amount or send a custom Stars donation.",
+            "Opens a feedback flow to contact administrators. The code also exposes <code>/feedback</code> and <code>/contact</code>."
+          ]
+        },
+        faq: {
+          eyebrow: "Search and answers",
+          title: "Frequently asked questions",
+          text: "The FAQ below is built only from what is actually implemented in the project: routing, formats, limits, paid plans, external uploads, and code-level restrictions.",
+          questions: [
+            "How do I download a YouTube video with a Telegram bot?",
+            "Can I extract audio from video as MP3, OGG, or WAV?",
+            "How do I turn a voice message or audio into text?",
+            "Which file formats does the bot support?",
+            "Can I compress video, photos, audio, or ZIP files right inside Telegram?",
+            "How do I make a PDF from photos, TXT, or DOCX?",
+            "What happens if the file is larger than Telegram allows?",
+            "Does the bot support TikTok, Instagram Reels, VK, and X/Twitter?",
+            "Can I download a live stream?",
+            "Is there a free mode plus Lite or Pro plans?"
+          ],
+          answers: [
+            "In ToolboxBot you simply send a YouTube link to the chat, after which the bot detects the URL type and shows a video download button. You can then choose the quality, and the result arrives in Telegram either as a file or as a link if it exceeds the messenger limit.",
+            "Yes, the project code supports audio download from media links and separate audio extraction from an uploaded video file. The formats exposed in action handlers and keyboards are MP3, OGG, M4A, FLAC, and WAV.",
+            "The bot can transcribe voice messages, audio files, videos, and media links. According to the code it first tries the Groq Whisper API, and if that fails, hits a limit, or becomes unavailable, it switches to local faster-whisper.",
+            "The repository explicitly defines video formats MP4, MKV, AVI, MOV, WMV, FLV, WEBM, M4V, TS, and 3GP; audio formats MP3, OGG, M4A, FLAC, WAV, AAC, OPUS, and WMA; image formats JPG, PNG, GIF, WEBP, BMP, TIFF, and HEIC. For documents the bot recognizes PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, CSV, and RTF, plus ZIP, RAR, 7Z, TAR, GZ, BZ2, and XZ archives.",
+            "Yes, ToolboxBot has a dedicated compression action. Media files are processed through ffmpeg and Pillow, while documents and archives are packed into ZIP with high, med, and low levels.",
+            "If you send a photo, the bot builds a PDF through Pillow. For TXT and DOCX it uses headless LibreOffice, so ToolboxBot really works as a Telegram bot for turning documents into PDF.",
+            "The project has a dedicated upload service: small files are sent as regular attachments, while larger ones can be uploaded to Litterbox or Pixeldrain. On top of manual upload, the bot can automatically return an external link when the final result exceeds Telegram limits.",
+            "Yes, these platforms are detected directly in the content detector, along with YouTube, Facebook, Reddit, Twitch, Vimeo, Rutube, Pinterest, SoundCloud, and Threads. For recognized media links the bot offers download, transcription, QR code, and URL shortening actions.",
+            "No, live streams are intentionally blocked in code before download starts. The service first checks the <code>is_live</code> flag through <code>yt-dlp</code> metadata and returns an error if the link points to a live broadcast.",
+            "Yes, the repository includes monetization, Telegram Stars purchases, and Free, Lite, and Pro plans. The <code>/buy</code> command starts subscription checkout, while <code>/status</code> shows the current plan, remaining actions, and the end date of a paid plan."
+          ]
+        },
+        cta: {
+          title: "Try ToolboxBot in Telegram right now",
+          text: "Send a link, photo, document, or voice message and see which actions the bot offers for that specific content.",
+          button: "Open in Telegram →",
+          microcopy: "No signup, no installation."
+        },
+        footer: {
+          navLinks: ["Telegram", "All projects", "GitHub profile", "Privacy policy"],
+          stackTitle: "Bot stack",
+          stackText: "Python 3.11, aiogram 3, yt-dlp, ffmpeg, Pillow, pypdf, qrcode, Groq, faster-whisper, SQLite, aiohttp, Loguru, Playwright, and keyring. The Dockerfile also configures Node.js and Chromium explicitly for Playwright-based flows.",
+          privacyTitle: "Privacy policy",
+          privacyTexts: [
+            "According to the project code, input and output files are stored in temporary directories and cleaned up after each task finishes. This reduces traces of processing on the server and keeps the bot workspace clean.",
+            "ToolboxBot sanitizes its logs by stripping tokens, keys, IDs, usernames, and secrets from URLs. The project can also read secrets from the operating system keyring, not only from <code>.env</code>."
+          ]
+        }
+      }
+    };
+
+    const langButtons = Array.from(document.querySelectorAll(".lang-switcher button"));
+    const savedLang = localStorage.getItem("site-lang");
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    const defaultLang = urlLang && translations[urlLang]
+      ? urlLang
+      : (savedLang && translations[savedLang] ? savedLang : "ru");
+
+    function setText(node, value) {
+      if (node && typeof value === "string") {
+        node.textContent = value;
+      }
+    }
+
+    function setHtml(node, value) {
+      if (node && typeof value === "string") {
+        node.innerHTML = value;
+      }
+    }
+
+    function setTextArray(nodes, values) {
+      nodes.forEach((node, index) => setText(node, values[index]));
+    }
+
+    function setHtmlArray(nodes, values) {
+      nodes.forEach((node, index) => setHtml(node, values[index]));
+    }
+
+    function applyLanguage(lang) {
+      const locale = translations[lang] || translations.ru;
+
+      document.documentElement.lang = locale.meta.lang;
+      document.title = locale.meta.title;
+
+      if (metaNodes.description) {
+        metaNodes.description.setAttribute("content", locale.meta.description);
+      }
+      if (metaNodes.ogTitle) {
+        metaNodes.ogTitle.setAttribute("content", locale.meta.title);
+      }
+      if (metaNodes.ogDescription) {
+        metaNodes.ogDescription.setAttribute("content", locale.meta.description);
+      }
+      if (metaNodes.ogLocale) {
+        metaNodes.ogLocale.setAttribute("content", locale.meta.locale);
+      }
+      if (metaNodes.ogImageAlt) {
+        metaNodes.ogImageAlt.setAttribute("content", locale.meta.imageAlt);
+      }
+      if (metaNodes.twitterTitle) {
+        metaNodes.twitterTitle.setAttribute("content", locale.meta.title);
+      }
+      if (metaNodes.twitterDescription) {
+        metaNodes.twitterDescription.setAttribute("content", locale.meta.description);
+      }
+      if (metaNodes.twitterImageAlt) {
+        metaNodes.twitterImageAlt.setAttribute("content", locale.meta.imageAlt);
+      }
+
+      setText(pageNodes.skipLink, locale.aria.skip);
+      pageNodes.headerBrand?.setAttribute("aria-label", locale.aria.headerBrand);
+      pageNodes.footerBrand?.setAttribute("aria-label", locale.aria.footerBrand);
+      pageNodes.nav?.setAttribute("aria-label", locale.aria.nav);
+      pageNodes.langSwitcher?.setAttribute("aria-label", locale.aria.lang);
+      pageNodes.hero.proofList?.setAttribute("aria-label", locale.aria.proof);
+      pageNodes.hero.svg?.setAttribute("aria-label", locale.aria.heroSvg);
+      pageNodes.functions.noteCard?.setAttribute("aria-label", locale.aria.note);
+      pageNodes.workflow.launchCommands?.setAttribute("aria-label", locale.aria.launchCommands);
+      pageNodes.footer.nav?.setAttribute("aria-label", locale.aria.footerNav);
+
+      setTextArray(pageNodes.navLinks, locale.header.navLinks);
+      setText(pageNodes.hero.eyebrow, locale.hero.eyebrow);
+      setText(pageNodes.hero.title, locale.hero.title);
+      setText(pageNodes.hero.lead, locale.hero.lead);
+      setTextArray(pageNodes.hero.buttons, locale.hero.buttons);
+      setTextArray(pageNodes.hero.proofItems, locale.hero.proofItems);
+      setTextArray(pageNodes.hero.svgTexts, locale.hero.svgTexts);
+
+      setText(pageNodes.functions.eyebrow, locale.functions.eyebrow);
+      setText(pageNodes.functions.title, locale.functions.title);
+      setText(pageNodes.functions.text, locale.functions.text);
+      setTextArray(pageNodes.functions.cards.map((card) => card.title), locale.functions.cardTitles);
+      setHtmlArray(pageNodes.functions.cards.map((card) => card.body), locale.functions.cardBodies);
+      setText(pageNodes.functions.noteLeadStrong, locale.functions.noteLeadStrong);
+      setText(pageNodes.functions.noteLeadText, locale.functions.noteLeadText);
+      setHtmlArray(pageNodes.functions.noteParagraphs, locale.functions.noteParagraphs);
+
+      setText(pageNodes.workflow.eyebrow, locale.workflow.eyebrow);
+      setText(pageNodes.workflow.title, locale.workflow.title);
+      setText(pageNodes.workflow.text, locale.workflow.text);
+      setTextArray(pageNodes.workflow.steps.map((step) => step.title), locale.workflow.stepTitles);
+      setHtmlArray(pageNodes.workflow.steps.map((step) => step.body), locale.workflow.stepBodies);
+      setText(pageNodes.workflow.commandPanelTitle, locale.workflow.commandPanelTitle);
+      setHtmlArray(pageNodes.workflow.commandCards.map((card) => card.body), locale.workflow.commandBodies);
+
+      setText(pageNodes.faq.eyebrow, locale.faq.eyebrow);
+      setText(pageNodes.faq.title, locale.faq.title);
+      setText(pageNodes.faq.text, locale.faq.text);
+      setTextArray(pageNodes.faq.items.map((item) => item.question), locale.faq.questions);
+      setHtmlArray(pageNodes.faq.items.map((item) => item.answer), locale.faq.answers);
+
+      setText(pageNodes.cta.title, locale.cta.title);
+      setText(pageNodes.cta.text, locale.cta.text);
+      setText(pageNodes.cta.button, locale.cta.button);
+      setText(pageNodes.cta.microcopy, locale.cta.microcopy);
+
+      setTextArray(pageNodes.footer.navLinks, locale.footer.navLinks);
+      setText(pageNodes.footer.stackTitle, locale.footer.stackTitle);
+      setText(pageNodes.footer.stackText, locale.footer.stackText);
+      setText(pageNodes.footer.privacyTitle, locale.footer.privacyTitle);
+      setHtmlArray(pageNodes.footer.privacyTexts, locale.footer.privacyTexts);
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.lang === lang);
+      });
+
+      localStorage.setItem("site-lang", lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    applyLanguage(defaultLang);
   </script>
 </body>
 </html>
