@@ -12,13 +12,14 @@
   <meta property="og:title" content="Проекты Viacheslav Chernyshov — ToolboxBot и Java Interview Questions">
   <meta property="og:description" content="Публичная витрина проектов: отдельные сайты, репозитории и инженерные материалы с возможностью постепенно расширять каталог.">
   <meta property="og:url" content="https://viacheslavchernyshov.github.io/">
-  <meta property="og:image" content="https://viacheslavchernyshov.github.io/toolboxbot/branding_assets/toolbox_banner_small.png">
-  <meta property="og:image:alt" content="Домашняя страница проектов Viacheslav Chernyshov">
+  <meta property="og:image" content="https://viacheslavchernyshov.github.io/assets/projects-banner.svg">
+  <meta property="og:image:alt" content="Нейтральная технологичная обложка домашней страницы проектов Viacheslav Chernyshov">
   <meta property="og:locale" content="ru_RU">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Проекты Viacheslav Chernyshov — ToolboxBot и Java Interview Questions">
   <meta name="twitter:description" content="Публичная витрина проектов: сайты, репозитории и инженерные материалы на GitHub Pages.">
-  <meta name="twitter:image" content="https://viacheslavchernyshov.github.io/toolboxbot/branding_assets/toolbox_banner_small.png">
+  <meta name="twitter:image" content="https://viacheslavchernyshov.github.io/assets/projects-banner.svg">
+  <meta name="twitter:image:alt" content="Нейтральная технологичная обложка домашней страницы проектов Viacheslav Chernyshov">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -95,6 +96,7 @@
         radial-gradient(circle at top right, rgba(79, 224, 182, 0.16), transparent 24%),
         linear-gradient(180deg, #0d1326 0%, var(--bg) 38%, var(--bg-strong) 100%);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -190,12 +192,13 @@
     .hero-grid {
       display: grid;
       gap: 28px;
-      align-items: center;
+      align-items: start;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       margin: 0 0 16px;
       padding: 8px 14px;
@@ -205,6 +208,7 @@
       color: var(--accent);
       font-size: 0.92rem;
       font-weight: 700;
+      max-width: 100%;
     }
 
     h1,
@@ -216,7 +220,7 @@
     }
 
     h1 {
-      font-size: clamp(2.4rem, 7vw, 4.9rem);
+      font-size: clamp(2.2rem, 8vw, 4.9rem);
       max-width: 12ch;
     }
 
@@ -225,6 +229,7 @@
       color: var(--muted);
       max-width: 64ch;
       font-size: 1.02rem;
+      overflow-wrap: anywhere;
     }
 
     .button-row {
@@ -286,10 +291,84 @@
       box-shadow: var(--shadow);
     }
 
-    .hero-panel svg {
-      width: 100%;
-      min-height: 290px;
-      height: 100%;
+    .signal-board {
+      display: grid;
+      gap: 16px;
+    }
+
+    .signal-row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .signal-card,
+    .signal-stack,
+    .signal-node {
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .signal-card {
+      padding: 18px;
+    }
+
+    .signal-card strong,
+    .signal-stack strong,
+    .signal-node strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      letter-spacing: -0.03em;
+    }
+
+    .signal-card span,
+    .signal-stack p,
+    .signal-node span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .signal-link {
+      display: none;
+    }
+
+    .signal-link::before {
+      content: "";
+      display: block;
+      width: 36px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(77, 162, 255, 0.2), rgba(77, 162, 255, 0.9), rgba(79, 224, 182, 0.35));
+      box-shadow: 0 0 0 6px rgba(77, 162, 255, 0.08);
+    }
+
+    .signal-stack {
+      padding: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(77, 162, 255, 0.1), transparent 28%),
+        rgba(255, 255, 255, 0.03);
+    }
+
+    .signal-grid {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .signal-node {
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .section {
@@ -381,6 +460,7 @@
     .project-card p {
       margin: 0;
       color: var(--muted);
+      overflow-wrap: anywhere;
     }
 
     .tag-list {
@@ -440,6 +520,7 @@
     .info-card p {
       margin: 10px 0 0;
       color: var(--muted);
+      overflow-wrap: anywhere;
     }
 
     .footer {
@@ -491,6 +572,31 @@
       }
     }
 
+    @media (max-width: 479px) {
+      h1 {
+        max-width: none;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .project-top {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .project-actions {
+        align-items: stretch;
+      }
+
+      .button,
+      .button-ghost,
+      .project-note {
+        width: 100%;
+      }
+    }
+
     @media (min-width: 768px) {
       .header-inner {
         grid-template-columns: auto 1fr;
@@ -507,6 +613,19 @@
 
       .hero-grid {
         grid-template-columns: 1.05fr 0.95fr;
+      }
+
+      .signal-row {
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+      }
+
+      .signal-link {
+        display: block;
+      }
+
+      .signal-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .projects-grid,
@@ -595,40 +714,50 @@
         </div>
 
         <div class="hero-panel">
-          <svg viewBox="0 0 620 420" fill="none" role="img" aria-label="Схема: закрытые репозитории, публичные сайты и каталог проектов">
-            <defs>
-              <linearGradient id="panel-primary" x1="92" y1="42" x2="438" y2="318" gradientUnits="userSpaceOnUse">
-                <stop stop-color="rgba(77,162,255,0.28)"/>
-                <stop offset="1" stop-color="rgba(255,255,255,0.02)"/>
-              </linearGradient>
-            </defs>
-            <rect x="30" y="28" width="560" height="364" rx="28" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
-            <rect x="58" y="58" width="216" height="128" rx="20" fill="url(#panel-primary)" stroke="rgba(255,255,255,0.08)"/>
-            <rect x="344" y="58" width="220" height="128" rx="20" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
-            <rect x="58" y="220" width="506" height="136" rx="24" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+          <div class="signal-board" aria-label="Нейтральная технологичная схема публикации проектов">
+            <div class="signal-row">
+              <div class="signal-card">
+                <strong>Private code</strong>
+                <span>рабочие приложения, сервисы, внутренние эксперименты и закрытые репозитории</span>
+                <div class="chip-row">
+                  <span class="chip chip-warn">Apps</span>
+                  <span class="chip chip-warn">APIs</span>
+                  <span class="chip chip-warn">Research</span>
+                </div>
+              </div>
 
-            <text x="82" y="92" fill="#ffffff" font-size="22" font-weight="700">Private repos</text>
-            <text x="82" y="122" fill="#9fb0c8" font-size="15">закрытый код приложений</text>
-            <rect x="82" y="140" width="118" height="30" rx="15" fill="rgba(255,207,102,0.12)" stroke="rgba(255,207,102,0.16)"/>
-            <text x="112" y="159" fill="#ffcf66" font-size="13" font-weight="700">ToolboxBot</text>
+              <div class="signal-link" aria-hidden="true"></div>
 
-            <text x="372" y="92" fill="#ffffff" font-size="22" font-weight="700">Public pages</text>
-            <text x="372" y="122" fill="#9fb0c8" font-size="15">открытые лендинги и материалы</text>
-            <rect x="372" y="140" width="116" height="30" rx="15" fill="rgba(79,224,182,0.12)" stroke="rgba(79,224,182,0.16)"/>
-            <text x="392" y="159" fill="#4fe0b6" font-size="13" font-weight="700">GitHub Pages</text>
+              <div class="signal-card">
+                <strong>Public pages</strong>
+                <span>открытые лендинги, документация, project pages и материалы для портфолио</span>
+                <div class="chip-row">
+                  <span class="chip chip-accent">Pages</span>
+                  <span class="chip chip-accent">Docs</span>
+                  <span class="chip chip-accent">Portfolio</span>
+                </div>
+              </div>
+            </div>
 
-            <path d="M274 121C306 121 318 121 344 121" stroke="rgba(77,162,255,0.42)" stroke-width="3" stroke-dasharray="8 10"/>
-            <circle cx="308" cy="121" r="5.5" fill="#4da2ff"/>
-
-            <text x="86" y="252" fill="#ffffff" font-size="20" font-weight="700">Каталог проектов</text>
-            <rect x="86" y="278" width="178" height="44" rx="22" fill="rgba(77,162,255,0.12)" stroke="rgba(77,162,255,0.18)"/>
-            <text x="121" y="306" fill="#4da2ff" font-size="15" font-weight="700">/toolboxbot/</text>
-            <rect x="280" y="278" width="244" height="44" rx="22" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
-            <text x="312" y="306" fill="#ffffff" font-size="15" font-weight="700">/java-interview-questions-and-answers/</text>
-
-            <text x="86" y="344" fill="#9fb0c8" font-size="14">Главная страница становится точкой входа</text>
-            <text x="86" y="364" fill="#9fb0c8" font-size="14">для всех публичных проектов и их отдельных сайтов.</text>
-          </svg>
+            <div class="signal-stack">
+              <strong>Нейтральная схема публикации</strong>
+              <p>Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.</p>
+              <div class="signal-grid">
+                <div class="signal-node">
+                  <strong>Projects</strong>
+                  <span>карточки и отдельные страницы</span>
+                </div>
+                <div class="signal-node">
+                  <strong>Knowledge base</strong>
+                  <span>вопросы, ответы и учебные материалы</span>
+                </div>
+                <div class="signal-node">
+                  <strong>Launchpad</strong>
+                  <span>единая точка входа для новых релизов</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

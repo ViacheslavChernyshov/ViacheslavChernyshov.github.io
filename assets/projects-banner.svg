@@ -1,0 +1,60 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#07111F"/>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="156" cy="104" r="164" fill="url(#glowA)" opacity="0.9"/>
+  <circle cx="1044" cy="102" r="188" fill="url(#glowB)" opacity="0.75"/>
+  <circle cx="958" cy="528" r="188" fill="url(#glowC)" opacity="0.65"/>
+
+  <rect x="86" y="82" width="1028" height="466" rx="34" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+  <rect x="126" y="128" width="330" height="154" rx="28" fill="rgba(77,162,255,0.1)" stroke="rgba(77,162,255,0.22)"/>
+  <rect x="744" y="128" width="330" height="154" rx="28" fill="rgba(79,224,182,0.08)" stroke="rgba(79,224,182,0.18)"/>
+  <rect x="126" y="324" width="948" height="166" rx="30" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+
+  <path d="M456 206H744" stroke="url(#line)" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 14"/>
+  <circle cx="600" cy="206" r="9" fill="#4DA2FF"/>
+
+  <text x="164" y="178" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800">Private code</text>
+  <text x="164" y="219" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">приложения, сервисы, эксперименты</text>
+
+  <text x="782" y="178" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="800">Public pages</text>
+  <text x="782" y="219" fill="#9FB0C8" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">лендинги, docs, project pages</text>
+
+  <rect x="164" y="234" width="90" height="38" rx="19" fill="rgba(255,207,102,0.14)" stroke="rgba(255,207,102,0.22)"/>
+  <text x="191" y="259" fill="#FFCF66" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Apps</text>
+  <rect x="264" y="234" width="88" height="38" rx="19" fill="rgba(255,207,102,0.14)" stroke="rgba(255,207,102,0.22)"/>
+  <text x="287" y="259" fill="#FFCF66" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">APIs</text>
+
+  <rect x="782" y="234" width="102" height="38" rx="19" fill="rgba(79,224,182,0.12)" stroke="rgba(79,224,182,0.2)"/>
+  <text x="813" y="259" fill="#4FE0B6" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Pages</text>
+  <rect x="894" y="234" width="84" height="38" rx="19" fill="rgba(79,224,182,0.12)" stroke="rgba(79,224,182,0.2)"/>
+  <text x="918" y="259" fill="#4FE0B6" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Docs</text>
+
+  <text x="164" y="372" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="800">Viacheslav Chernyshov</text>
+  <text x="164" y="424" fill="#C9D6EA" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="600">Projects, pages and technical materials</text>
+  <text x="164" y="468" fill="#8FA6C5" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500">A public project home with neutral tech branding and separate pages for each release.</text>
+
+  <defs>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(156 104) rotate(90) scale(164)">
+      <stop stop-color="#2459FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2459FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1044 102) rotate(90) scale(188)">
+      <stop stop-color="#1DB7A6" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#1DB7A6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowC" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(958 528) rotate(90) scale(188)">
+      <stop stop-color="#4DA2FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#4DA2FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="52" y1="36" x2="1118" y2="598" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#132644"/>
+      <stop offset="0.52" stop-color="#0A1324"/>
+      <stop offset="1" stop-color="#07101D"/>
+    </linearGradient>
+    <linearGradient id="line" x1="456" y1="206" x2="744" y2="206" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4DA2FF" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#4DA2FF"/>
+      <stop offset="1" stop-color="#4FE0B6" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+</svg>

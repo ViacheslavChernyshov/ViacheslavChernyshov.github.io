@@ -93,6 +93,7 @@
         radial-gradient(circle at top right, rgba(84, 199, 162, 0.14), transparent 30%),
         linear-gradient(180deg, #10131c 0%, var(--bg) 30%, #0b0d14 100%);
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -223,6 +224,7 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 8px;
       margin: 0 0 14px;
       padding: 8px 14px;
@@ -232,6 +234,7 @@
       background: rgba(84, 199, 162, 0.08);
       font-size: 0.92rem;
       font-weight: 600;
+      max-width: 100%;
     }
 
     .hero h1 {
@@ -247,6 +250,7 @@
       max-width: 62ch;
       color: var(--muted);
       font-size: 1.02rem;
+      overflow-wrap: anywhere;
     }
 
     .button-row {
@@ -344,6 +348,24 @@
       min-height: 340px;
     }
 
+    @media (max-width: 767px) {
+      .hero {
+        padding-bottom: 18px;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .proof-list {
+        gap: 8px;
+      }
+
+      .proof-list li {
+        font-size: 0.88rem;
+      }
+    }
+
     .section {
       padding: 28px 0;
     }
@@ -394,6 +416,7 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.98rem;
+      overflow-wrap: anywhere;
     }
 
     .icon-shell {
@@ -504,6 +527,7 @@
     .faq-answer p {
       margin: 8px 0 0;
       color: var(--muted);
+      overflow-wrap: anywhere;
     }
 
     .command-panel {
@@ -694,6 +718,7 @@
     .footer-card p {
       margin: 10px 0 0;
       color: var(--muted);
+      overflow-wrap: anywhere;
     }
 
     .footer-copy {
