@@ -27,23 +27,23 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Проекты Viacheslav Chernyshov",
+    "name": "Projects of Viacheslav Chernyshov",
     "url": "https://viacheslavchernyshov.github.io/",
-    "description": "Публичная домашняя страница инженерных проектов Viacheslav Chernyshov.",
-    "inLanguage": "ru",
+    "description": "Public home page for engineering projects by Viacheslav Chernyshov.",
+    "inLanguage": ["ru", "uk", "en"],
     "hasPart": [
       {
         "@type": "SoftwareApplication",
         "name": "ToolboxBot",
         "url": "https://viacheslavchernyshov.github.io/toolboxbot/",
         "applicationCategory": "MultimediaApplication",
-        "description": "Telegram-бот для скачивания медиа, конвертации файлов и транскрибации."
+        "description": "Telegram bot for downloading media, converting files and transcription."
       },
       {
         "@type": "CreativeWork",
         "name": "Java Interview Questions and Answers",
         "url": "https://viacheslavchernyshov.github.io/java-interview-questions-and-answers/",
-        "description": "500+ вопросов и ответов по Java, Spring, SQL, Kafka, Docker и Kubernetes."
+        "description": "500+ interview questions and answers for Java engineers."
       }
     ],
     "author": {
@@ -67,9 +67,10 @@
       --brand-deep: #2563eb;
       --accent: #4fe0b6;
       --warn: #ffcf66;
-      --radius: 20px;
+      --radius: 22px;
       --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
       --card-shadow: 0 20px 40px rgba(37, 99, 235, 0.14);
+      --header-shadow: 0 18px 42px rgba(5, 10, 22, 0.34);
       --container: 1180px;
     }
 
@@ -78,7 +79,7 @@
     }
 
     html {
-      scroll-padding-top: 92px;
+      scroll-padding-top: 120px;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -110,8 +111,16 @@
       max-width: 100%;
     }
 
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
     .container {
-      width: min(100% - 40px, var(--container));
+      width: calc(100% - 32px);
+      max-width: var(--container);
       margin: 0 auto;
     }
 
@@ -124,7 +133,7 @@
       padding: 10px 16px;
       border-radius: 999px;
       background: var(--brand);
-      color: white;
+      color: #fff;
     }
 
     .skip-link:focus {
@@ -133,17 +142,25 @@
 
     .site-header {
       position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(16px);
-      background: rgba(7, 11, 22, 0.76);
+      top: 14px;
+      z-index: 110;
+      padding: 14px 0 0;
+      background: transparent;
+      border: 0;
+      backdrop-filter: none;
     }
 
     .header-inner {
       display: grid;
-      gap: 12px;
-      padding: 16px 0;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(9, 13, 24, 0.76);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--header-shadow);
     }
 
     .brand {
@@ -153,6 +170,7 @@
       min-height: 48px;
       font-weight: 800;
       letter-spacing: -0.03em;
+      white-space: nowrap;
     }
 
     .brand-mark {
@@ -165,8 +183,14 @@
     }
 
     .nav {
-      display: flex;
-      gap: 8px;
+      display: inline-flex;
+      justify-content: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -175,18 +199,50 @@
       display: none;
     }
 
-    .nav a {
+    .nav a,
+    .lang-switcher button {
       flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       min-height: 44px;
-      padding: 10px 14px;
+      padding: 10px 16px;
       border-radius: 999px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.03);
+      background: transparent;
       border: 1px solid transparent;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+      cursor: pointer;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible,
+    .nav a.is-active,
+    .lang-switcher button:hover,
+    .lang-switcher button:focus-visible,
+    .lang-switcher button.is-active {
+      color: var(--text);
+      background: rgba(77, 162, 255, 0.14);
+      border-color: rgba(77, 162, 255, 0.18);
+      outline: none;
+    }
+
+    .lang-switcher {
+      display: inline-flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .lang-switcher button {
+      min-width: 52px;
+      padding-inline: 14px;
     }
 
     .hero {
-      padding: 56px 0 44px;
+      padding: 72px 0 44px;
     }
 
     .hero-grid {
@@ -203,9 +259,10 @@
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0 0 16px;
+      margin: 0 0 18px;
       padding: 8px 14px;
       border-radius: 999px;
       border: 1px solid rgba(79, 224, 182, 0.22);
@@ -219,20 +276,19 @@
     h1,
     h2,
     h3 {
+      margin: 0;
       letter-spacing: -0.04em;
       line-height: 1.05;
-      margin: 0;
       text-wrap: balance;
     }
 
     h1 {
-      font-size: clamp(2.35rem, 4.4vw, 4rem);
-      max-width: none;
+      font-size: clamp(2.35rem, 4.6vw, 4.2rem);
       text-wrap: pretty;
     }
 
     .hero p {
-      margin: 22px 0 0;
+      margin: 24px 0 0;
       color: var(--muted);
       max-width: 58ch;
       font-size: 1.02rem;
@@ -247,15 +303,18 @@
       margin-top: 28px;
     }
 
-    .button {
+    .button,
+    .button-ghost,
+    .project-note {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
+      min-height: 50px;
       padding: 12px 22px;
       border-radius: 999px;
       font-weight: 700;
       border: 1px solid transparent;
+      white-space: nowrap;
     }
 
     .button-primary {
@@ -264,15 +323,23 @@
       box-shadow: 0 18px 30px rgba(37, 99, 235, 0.32);
     }
 
-    .button-secondary {
+    .button-secondary,
+    .button-ghost,
+    .project-note {
       border-color: rgba(255, 255, 255, 0.12);
       background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .project-note {
+      color: var(--muted);
+      cursor: default;
     }
 
     .stats {
       display: grid;
       gap: 14px;
-      margin-top: 32px;
+      margin-top: 34px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -285,13 +352,20 @@
 
     .stat strong {
       display: block;
-      font-size: 1.36rem;
+      font-size: 1.18rem;
       color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
     }
 
     .hero-panel {
       width: 100%;
-      max-width: 520px;
+      max-width: 530px;
       margin-left: auto;
       padding: 28px;
       border-radius: 28px;
@@ -352,18 +426,37 @@
       margin-top: 18px;
     }
 
-    .signal-link {
-      display: none;
+    .chip,
+    .tag-list li {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 700;
     }
 
-    .signal-link::before {
-      content: "";
-      display: block;
-      width: 36px;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(77, 162, 255, 0.2), rgba(77, 162, 255, 0.9), rgba(79, 224, 182, 0.35));
-      box-shadow: 0 0 0 6px rgba(77, 162, 255, 0.08);
+    .chip {
+      border: 1px solid transparent;
+    }
+
+    .chip-brand {
+      background: rgba(77, 162, 255, 0.12);
+      color: var(--brand);
+      border-color: rgba(77, 162, 255, 0.14);
+    }
+
+    .chip-accent {
+      background: rgba(79, 224, 182, 0.12);
+      color: var(--accent);
+      border-color: rgba(79, 224, 182, 0.14);
+    }
+
+    .chip-warn {
+      background: rgba(255, 207, 102, 0.12);
+      color: var(--warn);
+      border-color: rgba(255, 207, 102, 0.14);
     }
 
     .signal-stack {
@@ -373,10 +466,6 @@
         rgba(255, 255, 255, 0.03);
     }
 
-    .signal-stack-copy p {
-      margin-top: 12px;
-    }
-
     .signal-grid {
       display: grid;
       gap: 16px;
@@ -384,24 +473,23 @@
     }
 
     .signal-node {
-      min-height: 148px;
+      min-height: 142px;
       padding: 18px;
       background: rgba(255, 255, 255, 0.04);
     }
 
     .section {
-      padding: 52px 0;
+      padding: 58px 0;
     }
 
     .section-header {
       max-width: 78ch;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .section-header h2 {
-      font-size: clamp(2rem, 4vw, 3.15rem);
+      font-size: clamp(2rem, 4vw, 3.1rem);
       line-height: 1.08;
-      max-width: 22ch;
     }
 
     .section-header p {
@@ -411,15 +499,27 @@
       line-height: 1.68;
     }
 
-    .projects-grid {
+    .section-header--centered {
+      max-width: 940px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-header--centered .eyebrow {
+      justify-self: center;
+    }
+
+    .projects-grid,
+    .stack-grid {
       display: grid;
-      gap: 20px;
+      gap: 22px;
     }
 
     .project-card {
       display: grid;
       grid-template-rows: auto auto auto 1fr auto;
       gap: 18px;
+      height: 100%;
       padding: 28px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
@@ -443,6 +543,7 @@
       background: rgba(77, 162, 255, 0.12);
       border: 1px solid rgba(77, 162, 255, 0.18);
       color: var(--brand);
+      flex: 0 0 auto;
     }
 
     .project-meta {
@@ -452,39 +553,16 @@
       justify-content: flex-end;
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      border: 1px solid transparent;
-    }
-
-    .chip-brand {
-      background: rgba(77, 162, 255, 0.12);
-      color: var(--brand);
-      border-color: rgba(77, 162, 255, 0.14);
-    }
-
-    .chip-accent {
-      background: rgba(79, 224, 182, 0.12);
-      color: var(--accent);
-      border-color: rgba(79, 224, 182, 0.14);
-    }
-
-    .chip-warn {
-      background: rgba(255, 207, 102, 0.12);
-      color: var(--warn);
-      border-color: rgba(255, 207, 102, 0.14);
+    .project-copy {
+      display: grid;
+      gap: 12px;
     }
 
     .project-card h3 {
-      font-size: clamp(1.8rem, 2vw, 2.25rem);
+      font-size: clamp(1.72rem, 1.7vw, 2.08rem);
       line-height: 1.08;
-      max-width: 16ch;
+      max-width: 17ch;
+      text-wrap: pretty;
     }
 
     .project-card p {
@@ -505,42 +583,23 @@
     }
 
     .tag-list li {
-      min-height: 32px;
-      padding: 6px 10px;
-      border-radius: 999px;
       background: rgba(255, 255, 255, 0.05);
       color: #d7e4f5;
-      font-size: 0.83rem;
     }
 
     .project-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      flex-wrap: nowrap;
+      gap: 12px;
       align-items: center;
+      margin-top: auto;
     }
 
-    .button-ghost,
-    .project-note {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .project-note {
-      color: var(--muted);
-    }
-
-    .stack-grid {
-      display: grid;
-      gap: 20px;
+    .project-actions .button,
+    .project-actions .button-ghost,
+    .project-actions .project-note {
+      min-height: 46px;
+      padding: 10px 18px;
     }
 
     .info-card {
@@ -551,6 +610,11 @@
       background: rgba(255, 255, 255, 0.03);
     }
 
+    .info-card h3 {
+      font-size: 1.26rem;
+      line-height: 1.14;
+    }
+
     .info-card p {
       margin: 14px 0 0;
       color: var(--muted);
@@ -559,7 +623,7 @@
     }
 
     .footer {
-      padding: 28px 0 40px;
+      padding: 32px 0 46px;
       border-top: 1px solid var(--line);
       background: rgba(5, 8, 18, 0.85);
     }
@@ -567,12 +631,19 @@
     .footer-inner {
       display: grid;
       gap: 16px;
+      align-items: center;
+    }
+
+    .footer-copy {
+      margin: 10px 0 0;
+      color: var(--muted);
     }
 
     .footer-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      justify-content: flex-end;
     }
 
     .footer-links a {
@@ -585,18 +656,11 @@
     }
 
     @media (hover: hover) and (pointer: fine) {
-      .button,
-      .button-ghost,
-      .footer-links a,
-      .nav a,
-      .project-card {
-        transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
-      }
-
+      .nav a:hover,
+      .lang-switcher button:hover,
       .button:hover,
       .button-ghost:hover,
-      .footer-links a:hover,
-      .nav a:hover {
+      .footer-links a:hover {
         transform: translateY(-2px);
       }
 
@@ -607,22 +671,41 @@
       }
     }
 
-    @media (max-width: 479px) {
+    @media (max-width: 767px) {
+      .site-header {
+        top: 10px;
+      }
+
+      .header-inner {
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+      }
+
+      .nav {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+      }
+
+      .lang-switcher {
+        justify-self: end;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
       h1 {
-        max-width: none;
+        font-size: clamp(1.95rem, 11vw, 3rem);
+        max-width: 9.5ch;
+        overflow-wrap: anywhere;
       }
 
-      .stats {
-        grid-template-columns: 1fr;
+      .eyebrow {
+        font-size: 0.84rem;
       }
 
-      .project-top {
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .project-actions {
-        align-items: stretch;
+      .hero p {
+        max-width: 100%;
       }
 
       .button,
@@ -630,26 +713,36 @@
       .project-note {
         width: 100%;
       }
+
+      .project-actions {
+        flex-wrap: wrap;
+        align-items: stretch;
+      }
+
+      .project-top {
+        flex-direction: column;
+      }
+
+      .project-meta {
+        justify-content: flex-start;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 479px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (min-width: 768px) {
-      .header-inner {
-        grid-template-columns: auto 1fr;
-        align-items: center;
-      }
-
-      .nav {
-        justify-content: flex-end;
-      }
-
-      .hero {
-        padding-top: 76px;
-      }
-
       .hero-grid {
-        grid-template-columns: minmax(0, 1.16fr) minmax(420px, 0.84fr);
+        grid-template-columns: minmax(0, 1.1fr) minmax(430px, 0.9fr);
+        gap: 42px;
         align-items: center;
-        gap: 40px;
       }
 
       .signal-row {
@@ -671,25 +764,24 @@
 
       .footer-inner {
         grid-template-columns: 1fr auto;
-        align-items: center;
       }
     }
 
     @media (min-width: 1200px) {
       .hero {
-        padding-top: 96px;
+        padding-top: 82px;
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1.22fr) minmax(400px, 0.78fr);
+        grid-template-columns: minmax(0, 1.15fr) minmax(470px, 0.85fr);
+      }
+
+      .signal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .signal-node:last-child {
         grid-column: 1 / -1;
-      }
-
-      .section {
-        padding: 64px 0;
       }
     }
 
@@ -704,11 +796,11 @@
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <a class="skip-link" href="#main" data-i18n="skip">Перейти к содержимому</a>
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Проекты Viacheslav Chernyshov">
+      <a class="brand" href="#top" aria-label="Проекты Viacheslav Chernyshov" data-i18n-aria="brand.aria">
         <span class="brand-mark">
           <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Логотип страницы проектов">
             <path d="M4 7.5 12 4l8 3.5-8 3.5L4 7.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
@@ -718,11 +810,17 @@
         <span>Viacheslav Chernyshov</span>
       </a>
 
-      <nav class="nav" aria-label="Навигация по странице">
-        <a href="#projects">Проекты</a>
-        <a href="#principles">Подход</a>
-        <a href="#next">Дальше</a>
+      <nav class="nav" aria-label="Навигация по странице" data-i18n-aria="nav.aria">
+        <a href="#projects" data-i18n="nav.projects">Проекты</a>
+        <a href="#principles" data-i18n="nav.principles">Подход</a>
+        <a href="#next" data-i18n="nav.next">Дальше</a>
       </nav>
+
+      <div class="lang-switcher" aria-label="Выбор языка" data-i18n-aria="lang.aria">
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="uk">UA</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
     </div>
   </header>
 
@@ -730,43 +828,43 @@
     <section class="hero" id="top">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Домашняя страница инженерных проектов</p>
-          <h1>Публичная витрина проектов и технических материалов</h1>
-          <p>
+          <p class="eyebrow" data-i18n="hero.eyebrow">Домашняя страница инженерных проектов</p>
+          <h1 data-i18n="hero.title">Публичная витрина проектов и технических материалов</h1>
+          <p data-i18n="hero.text">
             Здесь собраны публичные страницы проектов Viacheslav Chernyshov: лендинги, GitHub Pages, демо и инженерные материалы.
             Рабочие приложения и приватные репозитории при этом могут оставаться закрытыми.
           </p>
           <div class="button-row">
-            <a class="button button-primary" href="#projects">Смотреть проекты</a>
-            <a class="button button-secondary" href="https://github.com/ViacheslavChernyshov" rel="noopener noreferrer">GitHub профиль</a>
+            <a class="button button-primary" href="#projects" data-i18n="hero.primary">Смотреть проекты</a>
+            <a class="button button-secondary" href="https://github.com/ViacheslavChernyshov" rel="noopener noreferrer" data-i18n="hero.secondary">GitHub профиль</a>
           </div>
 
-          <div class="stats" aria-label="Краткая статистика">
+          <div class="stats" aria-label="Краткая статистика" data-i18n-aria="stats.aria">
             <div class="stat">
               <strong>2</strong>
-              <span>проекта на витрине</span>
+              <span data-i18n="stats.one">проекта на витрине</span>
             </div>
             <div class="stat">
               <strong>GitHub Pages</strong>
-              <span>публичные страницы и демо</span>
+              <span data-i18n="stats.two">публичные страницы и демо</span>
             </div>
             <div class="stat">
               <strong>Private + Public</strong>
-              <span>код отдельно, сайт отдельно</span>
+              <span data-i18n="stats.three">код отдельно, сайт отдельно</span>
             </div>
             <div class="stat">
-              <strong>Каталог растёт</strong>
-              <span>новые проекты добавляются сюда</span>
+              <strong data-i18n="stats.fourTitle">Каталог растёт</strong>
+              <span data-i18n="stats.four">новые проекты добавляются сюда</span>
             </div>
           </div>
         </div>
 
         <div class="hero-panel">
-          <div class="signal-board" aria-label="Нейтральная технологичная схема публикации проектов">
+          <div class="signal-board" aria-label="Нейтральная технологичная схема публикации проектов" data-i18n-aria="signals.aria">
             <div class="signal-row">
               <div class="signal-card">
-                <strong>Private code</strong>
-                <span>рабочие приложения, сервисы, внутренние эксперименты и закрытые репозитории</span>
+                <strong data-i18n="signals.private.title">Private code</strong>
+                <span data-i18n="signals.private.text">рабочие приложения, сервисы, внутренние эксперименты и закрытые репозитории</span>
                 <div class="chip-row">
                   <span class="chip chip-warn">Apps</span>
                   <span class="chip chip-warn">APIs</span>
@@ -774,11 +872,9 @@
                 </div>
               </div>
 
-              <div class="signal-link" aria-hidden="true"></div>
-
               <div class="signal-card">
-                <strong>Public pages</strong>
-                <span>открытые лендинги, документация, project pages и материалы для портфолио</span>
+                <strong data-i18n="signals.public.title">Public pages</strong>
+                <span data-i18n="signals.public.text">открытые лендинги, документация, project pages и материалы для портфолио</span>
                 <div class="chip-row">
                   <span class="chip chip-accent">Pages</span>
                   <span class="chip chip-accent">Docs</span>
@@ -788,22 +884,20 @@
             </div>
 
             <div class="signal-stack">
-              <div class="signal-stack-copy">
-                <strong>Нейтральная схема публикации</strong>
-                <p>Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.</p>
-              </div>
+              <strong data-i18n="signals.scheme.title">Нейтральная схема публикации</strong>
+              <p data-i18n="signals.scheme.text">Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.</p>
               <div class="signal-grid">
                 <div class="signal-node">
-                  <strong>Projects</strong>
-                  <span>карточки и отдельные страницы</span>
+                  <strong data-i18n="signals.node1.title">Projects</strong>
+                  <span data-i18n="signals.node1.text">карточки и отдельные страницы</span>
                 </div>
                 <div class="signal-node">
-                  <strong>Knowledge base</strong>
-                  <span>вопросы, ответы и учебные материалы</span>
+                  <strong data-i18n="signals.node2.title">Knowledge base</strong>
+                  <span data-i18n="signals.node2.text">вопросы, ответы и учебные материалы</span>
                 </div>
                 <div class="signal-node">
-                  <strong>Launchpad</strong>
-                  <span>единая точка входа для новых релизов</span>
+                  <strong data-i18n="signals.node3.title">Launchpad</strong>
+                  <span data-i18n="signals.node3.text">единая точка входа для новых релизов</span>
                 </div>
               </div>
             </div>
@@ -815,9 +909,9 @@
     <section class="section" id="projects">
       <div class="container">
         <div class="section-header">
-          <p class="eyebrow">Текущий каталог</p>
-          <h2>Проекты на этой домашней странице</h2>
-          <p>
+          <p class="eyebrow" data-i18n="projectsSection.eyebrow">Текущий каталог</p>
+          <h2 data-i18n="projectsSection.title">Проекты на этой домашней странице</h2>
+          <p data-i18n="projectsSection.text">
             Сейчас витрина включает два проекта: детальную страницу для ToolboxBot и отдельный публичный проект
             с Java interview questions. Дальше сюда можно добавлять новые карточки, страницы и репозитории.
           </p>
@@ -834,17 +928,19 @@
                 </svg>
               </div>
               <div class="project-meta" aria-label="Статус ToolboxBot">
-                <span class="chip chip-warn">Private repo</span>
-                <span class="chip chip-brand">Public page</span>
+                <span class="chip chip-warn" data-i18n="toolbox.status.one">Private repo</span>
+                <span class="chip chip-brand" data-i18n="toolbox.status.two">Public page</span>
               </div>
             </div>
-            <div>
+
+            <div class="project-copy">
               <h3>ToolboxBot</h3>
-              <p>
+              <p data-i18n="toolbox.text">
                 Telegram-бот для скачивания медиа, конвертации файлов, транскрибации, PDF, QR-кодов, хэширования
                 и облачной выгрузки. Код приложения закрыт, а публичная страница проекта вынесена на GitHub Pages.
               </p>
             </div>
+
             <ul class="tag-list" aria-label="Теги ToolboxBot">
               <li>Python 3.11</li>
               <li>aiogram 3</li>
@@ -853,9 +949,10 @@
               <li>Groq Whisper</li>
               <li>faster-whisper</li>
             </ul>
+
             <div class="project-actions">
-              <a class="button button-primary" href="/toolboxbot/">Открыть страницу проекта</a>
-              <span class="project-note">Исходный репозиторий закрыт</span>
+              <a class="button button-primary" href="/toolboxbot/" data-i18n="toolbox.primary">Страница проекта</a>
+              <span class="project-note" data-i18n="toolbox.secondary">Исходник закрыт</span>
             </div>
           </article>
 
@@ -868,17 +965,19 @@
                 </svg>
               </div>
               <div class="project-meta" aria-label="Статус Java Interview Questions">
-                <span class="chip chip-accent">Public repo</span>
-                <span class="chip chip-brand">Pages live</span>
+                <span class="chip chip-accent" data-i18n="java.status.one">Public repo</span>
+                <span class="chip chip-brand" data-i18n="java.status.two">Pages live</span>
               </div>
             </div>
-            <div>
+
+            <div class="project-copy">
               <h3>Java Interview Questions and Answers</h3>
-              <p>
+              <p data-i18n="java.text">
                 Публичный инженерный проект с 500+ вопросами и ответами для Junior, Middle и Senior Java-разработчиков.
                 В описании репозитория указаны Spring Boot, Hibernate, SQL, Kafka, Docker, Kubernetes и другие темы.
               </p>
             </div>
+
             <ul class="tag-list" aria-label="Теги Java Interview Questions">
               <li>Java</li>
               <li>Spring Boot</li>
@@ -888,8 +987,9 @@
               <li>Docker</li>
               <li>Kubernetes</li>
             </ul>
+
             <div class="project-actions">
-              <a class="button button-primary" href="https://viacheslavchernyshov.github.io/java-interview-questions-and-answers/" rel="noopener noreferrer">Открыть сайт</a>
+              <a class="button button-primary" href="https://viacheslavchernyshov.github.io/java-interview-questions-and-answers/" rel="noopener noreferrer" data-i18n="java.primary">Сайт</a>
               <a class="button-ghost" href="https://github.com/ViacheslavChernyshov/java-interview-questions-and-answers" rel="noopener noreferrer">GitHub</a>
             </div>
           </article>
@@ -899,10 +999,10 @@
 
     <section class="section" id="principles">
       <div class="container">
-        <div class="section-header">
-          <p class="eyebrow">Как это устроено</p>
-          <h2>Публичная витрина и закрытые рабочие репозитории могут сосуществовать</h2>
-          <p>
+        <div class="section-header section-header--centered">
+          <p class="eyebrow" data-i18n="principles.eyebrow">Как это устроено</p>
+          <h2 data-i18n="principles.title">Публичная витрина и закрытые рабочие репозитории могут сосуществовать</h2>
+          <p data-i18n="principles.text">
             Эта страница как раз показывает удобную модель: публичный сайт собирает все проекты в одном месте,
             а приватные приложения не теряют закрытый исходный код. Для отдельных публичных материалов можно держать
             собственные Pages-репозитории или отдельные проектные сайты.
@@ -911,20 +1011,20 @@
 
         <div class="stack-grid">
           <article class="info-card">
-            <h3>Что остаётся публичным</h3>
-            <p>Главная страница проектов, лендинги, открытые материалы, документация, демо и репозитории, которые вы сами хотите показывать публично.</p>
+            <h3 data-i18n="principles.card1.title">Что остаётся публичным</h3>
+            <p data-i18n="principles.card1.text">Главная страница проектов, лендинги, открытые материалы, документация, демо и репозитории, которые вы сами хотите показывать публично.</p>
           </article>
           <article class="info-card">
-            <h3>Что можно держать закрытым</h3>
-            <p>Основной код продукта, внутренние сервисы, приватные бэкенды, токены, рабочие пайплайны и всё, что не должно быть видно извне.</p>
+            <h3 data-i18n="principles.card2.title">Что можно держать закрытым</h3>
+            <p data-i18n="principles.card2.text">Основной код продукта, внутренние сервисы, приватные бэкенды, токены, рабочие пайплайны и всё, что не должно быть видно извне.</p>
           </article>
           <article class="info-card">
-            <h3>Как связывать проекты</h3>
-            <p>Через карточки, ссылки, отдельные project pages, README и постепенное расширение каталога без раскрытия приватного исходника.</p>
+            <h3 data-i18n="principles.card3.title">Как связывать проекты</h3>
+            <p data-i18n="principles.card3.text">Через карточки, ссылки, отдельные project pages, README и постепенное расширение каталога без раскрытия приватного исходника.</p>
           </article>
           <article class="info-card" id="next">
-            <h3>Что дальше</h3>
-            <p>Эту домашнюю страницу легко расширять: добавлять новые карточки, фильтры по типам проектов, отдельные страницы и закреплённые материалы.</p>
+            <h3 data-i18n="principles.card4.title">Что дальше</h3>
+            <p data-i18n="principles.card4.text">Эту домашнюю страницу легко расширять: добавлять новые карточки, фильтры по типам проектов, отдельные страницы и закреплённые материалы.</p>
           </article>
         </div>
       </div>
@@ -935,10 +1035,10 @@
     <div class="container footer-inner">
       <div>
         <strong>© <span id="year">2026</span> Viacheslav Chernyshov</strong>
-        <p style="margin:10px 0 0;color:var(--muted);">Домашняя страница проектов на GitHub Pages. Новые проекты будем добавлять сюда постепенно.</p>
+        <p class="footer-copy" data-i18n="footer.text">Домашняя страница проектов на GitHub Pages. Новые проекты будем добавлять сюда постепенно.</p>
       </div>
-      <div class="footer-links" aria-label="Ссылки в футере">
-        <a href="https://github.com/ViacheslavChernyshov" rel="noopener noreferrer">GitHub профиль</a>
+      <div class="footer-links" aria-label="Ссылки в футере" data-i18n-aria="footer.aria">
+        <a href="https://github.com/ViacheslavChernyshov" rel="noopener noreferrer" data-i18n="footer.github">GitHub профиль</a>
         <a href="/toolboxbot/">ToolboxBot</a>
         <a href="https://viacheslavchernyshov.github.io/java-interview-questions-and-answers/" rel="noopener noreferrer">Java Interview</a>
       </div>
@@ -946,10 +1046,255 @@
   </footer>
 
   <script>
-    const yearNode = document.getElementById('year');
+    const translations = {
+      ru: {
+        meta: {
+          lang: "ru",
+          title: "Проекты Viacheslav Chernyshov — ToolboxBot и Java Interview Questions",
+          description: "Домашняя страница проектов Viacheslav Chernyshov: ToolboxBot, Java Interview Questions and Answers и будущие публичные релизы, сайты и инженерные материалы."
+        },
+        skip: "Перейти к содержимому",
+        "brand.aria": "Проекты Viacheslav Chernyshov",
+        "nav.aria": "Навигация по странице",
+        "nav.projects": "Проекты",
+        "nav.principles": "Подход",
+        "nav.next": "Дальше",
+        "lang.aria": "Выбор языка",
+        "hero.eyebrow": "Домашняя страница инженерных проектов",
+        "hero.title": "Публичная витрина проектов и технических материалов",
+        "hero.text": "Здесь собраны публичные страницы проектов Viacheslav Chernyshov: лендинги, GitHub Pages, демо и инженерные материалы. Рабочие приложения и приватные репозитории при этом могут оставаться закрытыми.",
+        "hero.primary": "Смотреть проекты",
+        "hero.secondary": "GitHub профиль",
+        "stats.aria": "Краткая статистика",
+        "stats.one": "проекта на витрине",
+        "stats.two": "публичные страницы и демо",
+        "stats.three": "код отдельно, сайт отдельно",
+        "stats.fourTitle": "Каталог растёт",
+        "stats.four": "новые проекты добавляются сюда",
+        "signals.aria": "Нейтральная технологичная схема публикации проектов",
+        "signals.private.title": "Private code",
+        "signals.private.text": "рабочие приложения, сервисы, внутренние эксперименты и закрытые репозитории",
+        "signals.public.title": "Public pages",
+        "signals.public.text": "открытые лендинги, документация, project pages и материалы для портфолио",
+        "signals.scheme.title": "Нейтральная схема публикации",
+        "signals.scheme.text": "Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.",
+        "signals.node1.title": "Projects",
+        "signals.node1.text": "карточки и отдельные страницы",
+        "signals.node2.title": "Knowledge base",
+        "signals.node2.text": "вопросы, ответы и учебные материалы",
+        "signals.node3.title": "Launchpad",
+        "signals.node3.text": "единая точка входа для новых релизов",
+        "projectsSection.eyebrow": "Текущий каталог",
+        "projectsSection.title": "Проекты на этой домашней странице",
+        "projectsSection.text": "Сейчас витрина включает два проекта: детальную страницу для ToolboxBot и отдельный публичный проект с Java interview questions. Дальше сюда можно добавлять новые карточки, страницы и репозитории.",
+        "toolbox.status.one": "Private repo",
+        "toolbox.status.two": "Public page",
+        "toolbox.text": "Telegram-бот для скачивания медиа, конвертации файлов, транскрибации, PDF, QR-кодов, хэширования и облачной выгрузки. Код приложения закрыт, а публичная страница проекта вынесена на GitHub Pages.",
+        "toolbox.primary": "Страница проекта",
+        "toolbox.secondary": "Исходник закрыт",
+        "java.status.one": "Public repo",
+        "java.status.two": "Pages live",
+        "java.text": "Публичный инженерный проект с 500+ вопросами и ответами для Junior, Middle и Senior Java-разработчиков. В описании репозитория указаны Spring Boot, Hibernate, SQL, Kafka, Docker, Kubernetes и другие темы.",
+        "java.primary": "Сайт",
+        "principles.eyebrow": "Как это устроено",
+        "principles.title": "Публичная витрина и закрытые рабочие репозитории могут сосуществовать",
+        "principles.text": "Эта страница как раз показывает удобную модель: публичный сайт собирает все проекты в одном месте, а приватные приложения не теряют закрытый исходный код. Для отдельных публичных материалов можно держать собственные Pages-репозитории или отдельные проектные сайты.",
+        "principles.card1.title": "Что остаётся публичным",
+        "principles.card1.text": "Главная страница проектов, лендинги, открытые материалы, документация, демо и репозитории, которые вы сами хотите показывать публично.",
+        "principles.card2.title": "Что можно держать закрытым",
+        "principles.card2.text": "Основной код продукта, внутренние сервисы, приватные бэкенды, токены, рабочие пайплайны и всё, что не должно быть видно извне.",
+        "principles.card3.title": "Как связывать проекты",
+        "principles.card3.text": "Через карточки, ссылки, отдельные project pages, README и постепенное расширение каталога без раскрытия приватного исходника.",
+        "principles.card4.title": "Что дальше",
+        "principles.card4.text": "Эту домашнюю страницу легко расширять: добавлять новые карточки, фильтры по типам проектов, отдельные страницы и закреплённые материалы.",
+        "footer.text": "Домашняя страница проектов на GitHub Pages. Новые проекты будем добавлять сюда постепенно.",
+        "footer.aria": "Ссылки в футере",
+        "footer.github": "GitHub профиль"
+      },
+      uk: {
+        meta: {
+          lang: "uk",
+          title: "Проєкти Viacheslav Chernyshov — ToolboxBot та Java Interview Questions",
+          description: "Домашня сторінка проєктів Viacheslav Chernyshov: ToolboxBot, Java Interview Questions and Answers та майбутні публічні релізи, сайти й інженерні матеріали."
+        },
+        skip: "Перейти до вмісту",
+        "brand.aria": "Проєкти Viacheslav Chernyshov",
+        "nav.aria": "Навігація сторінкою",
+        "nav.projects": "Проєкти",
+        "nav.principles": "Підхід",
+        "nav.next": "Далі",
+        "lang.aria": "Вибір мови",
+        "hero.eyebrow": "Домашня сторінка інженерних проєктів",
+        "hero.title": "Публічна вітрина проєктів і технічних матеріалів",
+        "hero.text": "Тут зібрані публічні сторінки проєктів Viacheslav Chernyshov: лендинги, GitHub Pages, демо та інженерні матеріали. Робочі застосунки й приватні репозиторії при цьому можуть залишатися закритими.",
+        "hero.primary": "Переглянути проєкти",
+        "hero.secondary": "GitHub профіль",
+        "stats.aria": "Коротка статистика",
+        "stats.one": "проєкти у вітрині",
+        "stats.two": "публічні сторінки та демо",
+        "stats.three": "код окремо, сайт окремо",
+        "stats.fourTitle": "Каталог росте",
+        "stats.four": "нові проєкти додаються сюди",
+        "signals.aria": "Нейтральна технологічна схема публікації проєктів",
+        "signals.private.title": "Private code",
+        "signals.private.text": "робочі застосунки, сервіси, внутрішні експерименти та закриті репозиторії",
+        "signals.public.title": "Public pages",
+        "signals.public.text": "відкриті лендинги, документація, project pages і матеріали для портфоліо",
+        "signals.scheme.title": "Нейтральна схема публікації",
+        "signals.scheme.text": "Один публічний сайт збирає каталог проєктів, а конкретні застосунки й робочі репозиторії можуть залишатися закритими.",
+        "signals.node1.title": "Projects",
+        "signals.node1.text": "картки та окремі сторінки",
+        "signals.node2.title": "Knowledge base",
+        "signals.node2.text": "питання, відповіді та навчальні матеріали",
+        "signals.node3.title": "Launchpad",
+        "signals.node3.text": "єдина точка входу для нових релізів",
+        "projectsSection.eyebrow": "Поточний каталог",
+        "projectsSection.title": "Проєкти на цій домашній сторінці",
+        "projectsSection.text": "Зараз вітрина включає два проєкти: детальну сторінку для ToolboxBot і окремий публічний проєкт із Java interview questions. Далі сюди можна додавати нові картки, сторінки та репозиторії.",
+        "toolbox.status.one": "Private repo",
+        "toolbox.status.two": "Public page",
+        "toolbox.text": "Telegram-бот для завантаження медіа, конвертації файлів, транскрибації, PDF, QR-кодів, хешування та хмарного вивантаження. Код застосунку закритий, а публічна сторінка проєкту винесена на GitHub Pages.",
+        "toolbox.primary": "Сторінка проєкту",
+        "toolbox.secondary": "Код закритий",
+        "java.status.one": "Public repo",
+        "java.status.two": "Pages live",
+        "java.text": "Публічний інженерний проєкт із 500+ питаннями та відповідями для Junior, Middle і Senior Java-розробників. В описі репозиторію вказані Spring Boot, Hibernate, SQL, Kafka, Docker, Kubernetes та інші теми.",
+        "java.primary": "Сайт",
+        "principles.eyebrow": "Як це влаштовано",
+        "principles.title": "Публічна вітрина та закриті робочі репозиторії можуть співіснувати",
+        "principles.text": "Ця сторінка якраз показує зручну модель: публічний сайт збирає всі проєкти в одному місці, а приватні застосунки не втрачають закритий вихідний код. Для окремих публічних матеріалів можна тримати власні Pages-репозиторії або окремі сторінки проєктів.",
+        "principles.card1.title": "Що залишається публічним",
+        "principles.card1.text": "Головна сторінка проєктів, лендинги, відкриті матеріали, документація, демо й репозиторії, які ви самі хочете показувати публічно.",
+        "principles.card2.title": "Що можна тримати закритим",
+        "principles.card2.text": "Основний код продукту, внутрішні сервіси, приватні бекенди, токени, робочі пайплайни й усе, що не повинно бути видимим зовні.",
+        "principles.card3.title": "Як пов’язувати проєкти",
+        "principles.card3.text": "Через картки, посилання, окремі project pages, README та поступове розширення каталогу без розкриття приватного вихідного коду.",
+        "principles.card4.title": "Що далі",
+        "principles.card4.text": "Цю домашню сторінку легко розширювати: додавати нові картки, фільтри за типами проєктів, окремі сторінки та закріплені матеріали.",
+        "footer.text": "Домашня сторінка проєктів на GitHub Pages. Нові проєкти будемо додавати сюди поступово.",
+        "footer.aria": "Посилання у футері",
+        "footer.github": "GitHub профіль"
+      },
+      en: {
+        meta: {
+          lang: "en",
+          title: "Projects of Viacheslav Chernyshov — ToolboxBot and Java Interview Questions",
+          description: "Project home page of Viacheslav Chernyshov: ToolboxBot, Java Interview Questions and Answers, plus future public releases, sites, and engineering materials."
+        },
+        skip: "Skip to content",
+        "brand.aria": "Projects of Viacheslav Chernyshov",
+        "nav.aria": "Page navigation",
+        "nav.projects": "Projects",
+        "nav.principles": "Approach",
+        "nav.next": "Next",
+        "lang.aria": "Language selection",
+        "hero.eyebrow": "Engineering projects home page",
+        "hero.title": "Public showcase of projects and technical materials",
+        "hero.text": "This page brings together the public project pages of Viacheslav Chernyshov: landing pages, GitHub Pages, demos, and engineering materials. Production apps and private repositories can still remain closed.",
+        "hero.primary": "View projects",
+        "hero.secondary": "GitHub profile",
+        "stats.aria": "Quick stats",
+        "stats.one": "projects in the showcase",
+        "stats.two": "public pages and demos",
+        "stats.three": "code separated from site",
+        "stats.fourTitle": "Growing catalog",
+        "stats.four": "new projects get added here",
+        "signals.aria": "Neutral technical publishing scheme",
+        "signals.private.title": "Private code",
+        "signals.private.text": "production apps, services, internal experiments, and closed repositories",
+        "signals.public.title": "Public pages",
+        "signals.public.text": "open landing pages, documentation, project pages, and portfolio materials",
+        "signals.scheme.title": "Neutral publishing scheme",
+        "signals.scheme.text": "One public site collects the project catalog, while specific apps and working repositories can remain private.",
+        "signals.node1.title": "Projects",
+        "signals.node1.text": "cards and dedicated pages",
+        "signals.node2.title": "Knowledge base",
+        "signals.node2.text": "questions, answers, and learning materials",
+        "signals.node3.title": "Launchpad",
+        "signals.node3.text": "single entry point for new releases",
+        "projectsSection.eyebrow": "Current catalog",
+        "projectsSection.title": "Projects on this home page",
+        "projectsSection.text": "The showcase currently includes two projects: a dedicated page for ToolboxBot and a separate public Java interview questions project. New cards, pages, and repositories can be added here over time.",
+        "toolbox.status.one": "Private repo",
+        "toolbox.status.two": "Public page",
+        "toolbox.text": "A Telegram bot for media downloading, file conversion, transcription, PDF, QR codes, hashing, and cloud upload. The application source remains private, while the public project page lives on GitHub Pages.",
+        "toolbox.primary": "Project page",
+        "toolbox.secondary": "Source private",
+        "java.status.one": "Public repo",
+        "java.status.two": "Pages live",
+        "java.text": "A public engineering project with 500+ questions and answers for Junior, Middle, and Senior Java engineers. The repository highlights Spring Boot, Hibernate, SQL, Kafka, Docker, Kubernetes, and related topics.",
+        "java.primary": "Visit site",
+        "principles.eyebrow": "How it works",
+        "principles.title": "A public showcase and private working repositories can coexist",
+        "principles.text": "This page demonstrates a convenient model: one public site collects all projects in a single place, while private apps keep their source code closed. Separate public materials can still have their own Pages repositories or dedicated project pages.",
+        "principles.card1.title": "What stays public",
+        "principles.card1.text": "The main projects page, landing pages, open materials, documentation, demos, and repositories you explicitly want to show publicly.",
+        "principles.card2.title": "What can stay private",
+        "principles.card2.text": "Core product code, internal services, private backends, tokens, production pipelines, and anything that should not be visible externally.",
+        "principles.card3.title": "How to connect projects",
+        "principles.card3.text": "Through cards, links, dedicated project pages, README files, and gradual catalog expansion without exposing private source code.",
+        "principles.card4.title": "What comes next",
+        "principles.card4.text": "This home page is easy to expand with new cards, filters by project type, dedicated pages, and featured materials.",
+        "footer.text": "Projects home page on GitHub Pages. New projects will be added here gradually.",
+        "footer.aria": "Footer links",
+        "footer.github": "GitHub profile"
+      }
+    };
+
+    const yearNode = document.getElementById("year");
     if (yearNode) {
       yearNode.textContent = String(new Date().getFullYear());
     }
+
+    const langButtons = Array.from(document.querySelectorAll(".lang-switcher button"));
+    const savedLang = localStorage.getItem("site-lang");
+    const defaultLang = savedLang && translations[savedLang] ? savedLang : "ru";
+
+    function setText(key, value) {
+      document.querySelectorAll(`[data-i18n="${key}"]`).forEach((node) => {
+        node.textContent = value;
+      });
+    }
+
+    function setAria(key, value) {
+      document.querySelectorAll(`[data-i18n-aria="${key}"]`).forEach((node) => {
+        const attr = node.tagName === "A" && node.classList.contains("brand") ? "aria-label" : "aria-label";
+        node.setAttribute(attr, value);
+      });
+    }
+
+    function applyLanguage(lang) {
+      const locale = translations[lang] || translations.ru;
+      Object.entries(locale).forEach(([key, value]) => {
+        if (key === "meta") {
+          return;
+        }
+        if (key.endsWith(".aria")) {
+          setAria(key, value);
+          return;
+        }
+        setText(key, value);
+      });
+
+      document.documentElement.lang = locale.meta.lang;
+      document.title = locale.meta.title;
+      const description = document.querySelector('meta[name="description"]');
+      if (description) {
+        description.setAttribute("content", locale.meta.description);
+      }
+
+      langButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.lang === lang);
+      });
+
+      localStorage.setItem("site-lang", lang);
+    }
+
+    langButtons.forEach((button) => {
+      button.addEventListener("click", () => applyLanguage(button.dataset.lang));
+    });
+
+    applyLanguage(defaultLang);
   </script>
 </body>
 </html>
