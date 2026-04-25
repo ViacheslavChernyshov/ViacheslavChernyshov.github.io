@@ -1,0 +1,1571 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Telegram-бот для скачивания видео и конвертации файлов — ToolboxBot</title>
+  <meta name="description" content="ToolboxBot — Telegram-бот для скачивания видео с YouTube, TikTok и Instagram, конвертации файлов, транскрибации аудио, QR-кодов и быстрой выгрузки в облако.">
+  <meta name="keywords" content="telegram бот для скачивания видео, скачать видео с youtube в telegram, скачать tiktok без водяного знака, скачать reels в telegram, скачать аудио из видео telegram, конвертер mp4 в mp3 telegram, бот для транскрибации аудио, бот для voice to text telegram, telegram бот в pdf, сжатие видео telegram бот, qr код из текста telegram, сократить ссылку telegram bot, загрузка больших файлов в облако, telegram бот для хеша файла">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://ViacheslavChernyshov.github.io/toolboxbot/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Telegram-бот для скачивания видео и конвертации файлов — ToolboxBot">
+  <meta property="og:description" content="ToolboxBot — Telegram-бот для скачивания видео с YouTube, TikTok и Instagram, конвертации файлов, транскрибации аудио, QR-кодов и быстрой выгрузки в облако.">
+  <meta property="og:image" content="https://ViacheslavChernyshov.github.io/toolboxbot/branding_assets/toolbox_banner_small.png">
+  <meta property="og:image:alt" content="ToolboxBot — Telegram-бот для скачивания видео, конвертации файлов и транскрибации аудио">
+  <meta property="og:url" content="https://ViacheslavChernyshov.github.io/toolboxbot/">
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Telegram-бот для скачивания видео и конвертации файлов — ToolboxBot">
+  <meta name="twitter:description" content="ToolboxBot — Telegram-бот для скачивания видео с YouTube, TikTok и Instagram, конвертации файлов, транскрибации аудио, QR-кодов и быстрой выгрузки в облако.">
+  <meta name="twitter:image" content="https://ViacheslavChernyshov.github.io/toolboxbot/branding_assets/toolbox_banner_small.png">
+  <meta name="twitter:image:alt" content="ToolboxBot — Telegram-бот для скачивания видео, конвертации файлов и транскрибации аудио">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ToolboxBot",
+    "applicationCategory": "MultimediaApplication",
+    "applicationSubCategory": "Telegram bot",
+    "operatingSystem": "Telegram, Web",
+    "softwareVersion": "0.45.0",
+    "dateModified": "2026-04-25",
+    "inLanguage": ["ru", "en", "uk", "id", "fa", "pt", "de", "it", "vi", "es"],
+    "url": "https://ViacheslavChernyshov.github.io/toolboxbot/",
+    "downloadUrl": "https://t.me/YOUR_BOT_USERNAME",
+    "image": "https://ViacheslavChernyshov.github.io/toolboxbot/branding_assets/toolbox_banner_small.png",
+    "isAccessibleForFree": true,
+    "description": "ToolboxBot — Telegram-бот для скачивания видео с медиаплатформ, конвертации файлов, транскрибации аудио, создания QR-кодов, хэширования, PDF-экспорта и облачной выгрузки.",
+    "featureList": [
+      "Скачивание видео и аудио по ссылкам через yt-dlp",
+      "Конвертация видео, аудио и изображений",
+      "Транскрибация через Groq Whisper и faster-whisper",
+      "Сжатие медиа и ZIP-архивирование документов",
+      "Извлечение текста из PDF, TXT, CSV и DOCX",
+      "Облачная выгрузка файлов на Litterbox и Pixeldrain"
+    ],
+    "sameAs": [
+      "https://t.me/YOUR_BOT_USERNAME",
+      "https://github.com/ViacheslavChernyshov/toolboxbot"
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0F1117;
+      --surface: #1A1D26;
+      --surface-strong: #22263A;
+      --brand: #2AABEE;
+      --brand-deep: #1A8FCC;
+      --accent: #54C7A2;
+      --text: #FFFFFF;
+      --muted: #8B95A8;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 20px 50px rgba(10, 14, 28, 0.45);
+      --card-shadow: 0 24px 48px rgba(42, 171, 238, 0.16);
+      --radius: 16px;
+      --container: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-padding-top: 96px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      html {
+        scroll-behavior: smooth;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(42, 171, 238, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(84, 199, 162, 0.14), transparent 30%),
+        linear-gradient(180deg, #10131c 0%, var(--bg) 30%, #0b0d14 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -64px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--brand);
+      color: var(--text);
+      z-index: 1000;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--container));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(15, 17, 23, 0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 48px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(42, 171, 238, 0.24), rgba(84, 199, 162, 0.16));
+      border: 1px solid rgba(42, 171, 238, 0.28);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav a {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.02);
+      transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible,
+    .nav a.is-active {
+      color: var(--text);
+      border-color: rgba(42, 171, 238, 0.32);
+      background: rgba(42, 171, 238, 0.12);
+      outline: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: 44px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 14px;
+      padding: 8px 14px;
+      border: 1px solid rgba(84, 199, 162, 0.24);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(84, 199, 162, 0.08);
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      max-width: 14ch;
+    }
+
+    .hero-lead {
+      margin: 18px 0 0;
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      box-shadow: 0 18px 34px rgba(42, 171, 238, 0.28);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+    }
+
+    .proof-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+    }
+
+    .proof-list li {
+      display: inline-flex;
+      align-items: center;
+      min-height: 40px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 0.94rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(42, 171, 238, 0.34), transparent 24%),
+        radial-gradient(circle at 78% 12%, rgba(84, 199, 162, 0.22), transparent 28%),
+        linear-gradient(160deg, rgba(34, 38, 58, 0.95), rgba(15, 17, 23, 0.95));
+      box-shadow: var(--shadow);
+      min-height: 340px;
+    }
+
+    .hero-visual::before,
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(18px);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .hero-visual::before {
+      width: 140px;
+      height: 140px;
+      right: -20px;
+      top: -12px;
+      background: rgba(42, 171, 238, 0.18);
+    }
+
+    .hero-visual::after {
+      width: 110px;
+      height: 110px;
+      left: -12px;
+      bottom: -22px;
+      background: rgba(84, 199, 162, 0.16);
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+    }
+
+    .section {
+      padding: 28px 0;
+    }
+
+    .section-header {
+      margin-bottom: 22px;
+      max-width: 72ch;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .section-header p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .feature-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feature-card {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(34, 38, 58, 0.92), rgba(26, 29, 38, 0.95));
+      box-shadow: 0 14px 26px rgba(9, 12, 20, 0.2);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .feature-card h2 {
+      margin: 0;
+      font-size: 1.22rem;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .icon-shell {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(42, 171, 238, 0.12);
+      border: 1px solid rgba(42, 171, 238, 0.22);
+    }
+
+    .icon-shell svg {
+      width: 28px;
+      height: 28px;
+      color: var(--brand);
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .chip-list li,
+    .command-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(42, 171, 238, 0.12);
+      color: var(--brand);
+      font-size: 0.84rem;
+      font-weight: 600;
+      border: 1px solid rgba(42, 171, 238, 0.12);
+    }
+
+    .note-card {
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: 22px;
+      border: 1px solid rgba(84, 199, 162, 0.18);
+      background:
+        linear-gradient(140deg, rgba(84, 199, 162, 0.12), rgba(42, 171, 238, 0.06)),
+        rgba(255, 255, 255, 0.02);
+    }
+
+    .note-card strong {
+      color: var(--text);
+    }
+
+    .note-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .note-grid p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .workflow-list {
+      display: grid;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: steps;
+    }
+
+    .workflow-list li {
+      position: relative;
+      display: grid;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(26, 29, 38, 0.92);
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      font-weight: 800;
+      box-shadow: 0 14px 24px rgba(42, 171, 238, 0.22);
+    }
+
+    .workflow-list h3,
+    .command-card h3,
+    .faq-item h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .workflow-list p,
+    .command-card p,
+    .faq-answer p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .command-panel {
+      margin-top: 20px;
+      padding: 22px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .command-panel h2 {
+      margin: 0;
+      font-size: 1.3rem;
+      letter-spacing: -0.03em;
+    }
+
+    .command-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .command-card {
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(26, 29, 38, 0.92);
+    }
+
+    .command-card code {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(26, 29, 38, 0.95);
+      overflow: hidden;
+    }
+
+    .faq-item input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .faq-item h3 {
+      margin: 0;
+    }
+
+    .faq-item label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 56px;
+      padding: 18px 20px;
+      cursor: pointer;
+    }
+
+    .faq-item label::after {
+      content: "+";
+      color: var(--brand);
+      font-size: 1.5rem;
+      line-height: 1;
+      flex: 0 0 auto;
+      transition: transform 0.25s ease;
+    }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.25s ease;
+    }
+
+    .faq-answer > div {
+      overflow: hidden;
+    }
+
+    .faq-answer p {
+      margin: 0;
+      padding: 0 20px 20px;
+    }
+
+    .faq-item input:checked + h3 label::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item input:checked + h3 + .faq-answer {
+      grid-template-rows: 1fr;
+    }
+
+    .cta-card {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid rgba(42, 171, 238, 0.18);
+      background:
+        radial-gradient(circle at top left, rgba(42, 171, 238, 0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(84, 199, 162, 0.16), transparent 26%),
+        linear-gradient(145deg, rgba(34, 38, 58, 1), rgba(17, 20, 29, 1));
+      box-shadow: var(--shadow);
+    }
+
+    .cta-card h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+    }
+
+    .cta-card p {
+      margin: 14px 0 0;
+      max-width: 52ch;
+      color: var(--muted);
+    }
+
+    .microcopy {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .site-footer {
+      padding: 28px 0 44px;
+      border-top: 1px solid var(--border);
+      background: rgba(10, 12, 18, 0.82);
+    }
+
+    .footer-top {
+      display: grid;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .footer-card {
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(26, 29, 38, 0.92);
+    }
+
+    .footer-card h2 {
+      margin: 0;
+      font-size: 1.14rem;
+      letter-spacing: -0.03em;
+    }
+
+    .footer-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+      }
+
+      .button-primary:hover,
+      .button-primary:focus-visible {
+        box-shadow: 0 22px 38px rgba(42, 171, 238, 0.34);
+      }
+
+      .feature-card:hover,
+      .feature-card:focus-within {
+        transform: translateY(-4px);
+        border-color: rgba(42, 171, 238, 0.28);
+        box-shadow: var(--card-shadow);
+      }
+
+      .footer-nav a:hover,
+      .footer-nav a:focus-visible {
+        color: var(--text);
+        border-color: rgba(42, 171, 238, 0.24);
+      }
+    }
+
+    @media (min-width: 375px) {
+      .hero {
+        padding-top: 52px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .header-inner {
+        grid-template-columns: auto 1fr;
+        align-items: center;
+      }
+
+      .nav {
+        justify-content: flex-end;
+      }
+
+      .hero {
+        padding: 70px 0 40px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 34px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .note-grid,
+      .workflow-list,
+      .command-grid,
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workflow-list li {
+        grid-template-columns: auto 1fr;
+        align-items: start;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr auto;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .hero {
+        padding-top: 84px;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .note-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .command-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .footer-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="ToolboxBot — перейти к началу страницы">
+        <span class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" aria-label="Логотип ToolboxBot" role="img">
+            <path d="M4 8.5 12 4l8 4.5-8 4.5L4 8.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M6.5 10.4V15.5L12 19l5.5-3.5v-5.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 9v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span>ToolboxBot</span>
+      </a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#functions">Функции</a>
+        <a href="#workflow">Как работает</a>
+        <a href="#faq">FAQ</a>
+        <a href="#privacy">Приватность</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Telegram-бот на Python 3.11, aiogram 3, yt-dlp, ffmpeg и Whisper</p>
+          <h1>Telegram-бот для скачивания видео и конвертации файлов</h1>
+          <p class="hero-lead">
+            ToolboxBot принимает ссылки, файлы, голосовые и обычный текст, сам определяет тип контента и
+            показывает только релевантные действия: скачать видео, вытащить аудио, сжать, конвертировать,
+            распознать речь, собрать PDF, посчитать хэш или выгрузить результат в облако.
+          </p>
+          <div class="button-row">
+            <a class="button button-primary" href="https://t.me/YOUR_BOT_USERNAME" rel="noopener noreferrer">Открыть в Telegram →</a>
+            <a class="button button-secondary" href="https://github.com/ViacheslavChernyshov/toolboxbot" rel="noopener noreferrer">GitHub →</a>
+          </div>
+          <ul class="proof-list" aria-label="Факты о проекте">
+            <li>Версия 0.45.0</li>
+            <li>10 языков интерфейса</li>
+            <li>YouTube, TikTok, Instagram, VK, X</li>
+            <li>Groq Whisper + faster-whisper</li>
+            <li>Очередь задач с приоритетом Lite/Pro</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <svg viewBox="0 0 640 520" fill="none" role="img" aria-label="Схема: Telegram, обработка ссылок и файлов, конвертация, транскрибация и облачная выгрузка">
+            <defs>
+              <linearGradient id="hero-card" x1="36" y1="32" x2="276" y2="300" gradientUnits="userSpaceOnUse">
+                <stop stop-color="rgba(42,171,238,0.28)"/>
+                <stop offset="1" stop-color="rgba(255,255,255,0.03)"/>
+              </linearGradient>
+              <linearGradient id="hero-button" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="#2AABEE"/>
+                <stop offset="1" stop-color="#1A8FCC"/>
+              </linearGradient>
+              <linearGradient id="hero-chip" x1="0" y1="0" x2="1" y2="1">
+                <stop stop-color="rgba(84,199,162,0.28)"/>
+                <stop offset="1" stop-color="rgba(42,171,238,0.12)"/>
+              </linearGradient>
+            </defs>
+            <rect x="34" y="34" width="572" height="452" rx="30" fill="rgba(13,16,24,0.72)" stroke="rgba(255,255,255,0.08)"/>
+            <rect x="74" y="72" width="222" height="166" rx="24" fill="url(#hero-card)" stroke="rgba(255,255,255,0.08)"/>
+            <rect x="322" y="72" width="244" height="108" rx="24" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
+            <rect x="322" y="198" width="244" height="120" rx="24" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)"/>
+            <rect x="74" y="262" width="492" height="178" rx="28" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+
+            <circle cx="132" cy="116" r="30" fill="rgba(42,171,238,0.14)" stroke="rgba(42,171,238,0.26)"/>
+            <path d="M118 117.5 148 104l-9.2 27.2-7.2-8-8.2 7.1-5.4-3.3 7.9-7.1-7.9-2.4Z" fill="#2AABEE"/>
+            <text x="176" y="112" fill="#FFFFFF" font-size="22" font-weight="700">Telegram</text>
+            <text x="176" y="142" fill="#8B95A8" font-size="16">ссылка, файл, текст, голосовое</text>
+
+            <path d="M274 155C306 155 316 126 349 126" stroke="rgba(42,171,238,0.42)" stroke-width="2.5" stroke-dasharray="8 10"/>
+            <circle cx="349" cy="126" r="5.5" fill="#2AABEE"/>
+            <path d="M274 186C316 186 330 258 374 258" stroke="rgba(84,199,162,0.36)" stroke-width="2.5" stroke-dasharray="8 10"/>
+            <circle cx="374" cy="258" r="5.5" fill="#54C7A2"/>
+
+            <text x="352" y="108" fill="#FFFFFF" font-size="20" font-weight="700">Динамическое меню</text>
+            <text x="352" y="136" fill="#8B95A8" font-size="15">скачать, конвертировать, сжать</text>
+            <rect x="352" y="148" width="102" height="30" rx="15" fill="url(#hero-button)"/>
+            <text x="373" y="168" fill="#FFFFFF" font-size="13" font-weight="700">360p–4320p</text>
+            <rect x="464" y="148" width="78" height="30" rx="15" fill="rgba(255,255,255,0.06)"/>
+            <text x="486" y="168" fill="#54C7A2" font-size="13" font-weight="700">MP3</text>
+
+            <text x="352" y="230" fill="#FFFFFF" font-size="20" font-weight="700">Обработка в очереди</text>
+            <text x="352" y="258" fill="#8B95A8" font-size="15">ffmpeg, Pillow, pypdf, Whisper</text>
+            <rect x="352" y="274" width="188" height="12" rx="6" fill="rgba(255,255,255,0.06)"/>
+            <rect x="352" y="274" width="138" height="12" rx="6" fill="url(#hero-button)"/>
+            <rect x="352" y="296" width="110" height="28" rx="14" fill="url(#hero-chip)"/>
+            <text x="382" y="314" fill="#54C7A2" font-size="13" font-weight="700">Groq</text>
+            <rect x="472" y="296" width="94" height="28" rx="14" fill="rgba(255,255,255,0.06)"/>
+            <text x="486" y="314" fill="#2AABEE" font-size="13" font-weight="700">ffmpeg</text>
+
+            <text x="102" y="302" fill="#FFFFFF" font-size="20" font-weight="700">Реальные действия из кода</text>
+            <rect x="102" y="332" width="112" height="36" rx="18" fill="rgba(42,171,238,0.12)" stroke="rgba(42,171,238,0.2)"/>
+            <text x="121" y="355" fill="#2AABEE" font-size="14" font-weight="700">скачать видео</text>
+            <rect x="224" y="332" width="116" height="36" rx="18" fill="rgba(84,199,162,0.12)" stroke="rgba(84,199,162,0.2)"/>
+            <text x="246" y="355" fill="#54C7A2" font-size="14" font-weight="700">транскрипция</text>
+            <rect x="350" y="332" width="112" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+            <text x="373" y="355" fill="#FFFFFF" font-size="14" font-weight="700">конвертация</text>
+            <rect x="472" y="332" width="62" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+            <text x="489" y="355" fill="#FFFFFF" font-size="14" font-weight="700">PDF</text>
+
+            <rect x="102" y="382" width="124" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+            <text x="123" y="405" fill="#FFFFFF" font-size="14" font-weight="700">сжатие и ZIP</text>
+            <rect x="236" y="382" width="102" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+            <text x="256" y="405" fill="#FFFFFF" font-size="14" font-weight="700">хэши</text>
+            <rect x="348" y="382" width="90" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.08)"/>
+            <text x="372" y="405" fill="#FFFFFF" font-size="14" font-weight="700">QR</text>
+            <rect x="448" y="382" width="118" height="36" rx="18" fill="rgba(42,171,238,0.12)" stroke="rgba(42,171,238,0.18)"/>
+            <text x="468" y="405" fill="#2AABEE" font-size="14" font-weight="700">облачная ссылка</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="functions">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">Что умеет ToolboxBot</p>
+          <h2>Функции, которые реально есть в репозитории</h2>
+          <p>
+            Ниже перечислены пользовательские действия, которые бот действительно показывает в интерфейсе на основе
+            типа контента. Источник данных для этого лендинга — реальные `handlers`, `services`, `action_handlers`,
+            локали и тесты проекта.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка скачивания видео">
+                <path d="M12 4v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="m7.5 10.5 4.5 4.5 4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="4" y="17" width="16" height="3" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <h2>Скачать видео</h2>
+            <p>
+              Скачивайте видео с YouTube, TikTok, Instagram Reels, VK, X/Twitter и Facebook прямо в Telegram.
+              Бот использует <code>yt-dlp</code>, спрашивает качество и для Pro открывает уровни 1440p, 2160p и 4320p.
+            </p>
+            <ul class="chip-list">
+              <li>YouTube</li>
+              <li>TikTok</li>
+              <li>Instagram</li>
+              <li>VK</li>
+              <li>X/Twitter</li>
+              <li>Facebook</li>
+              <li>MP4</li>
+              <li>360p-4320p</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка скачивания аудио">
+                <path d="M14.5 5v10.2a3.2 3.2 0 1 1-1.8-2.88V7.1l6.3-1.6v8.1a3.2 3.2 0 1 1-1.8-2.88V4.3L14.5 5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h2>Скачать аудио</h2>
+            <p>
+              Из медиассылки можно забрать только аудиодорожку и сразу выбрать целевой формат. В коде доступны
+              <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> и <code>WAV</code>.
+            </p>
+            <ul class="chip-list">
+              <li>MP3</li>
+              <li>OGG</li>
+              <li>M4A</li>
+              <li>FLAC</li>
+              <li>WAV</li>
+              <li>yt-dlp</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка транскрибации">
+                <path d="M12 4a4 4 0 0 1 4 4v4a4 4 0 1 1-8 0V8a4 4 0 0 1 4-4Z" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M6 11.5a6 6 0 0 0 12 0M12 17.5V21M9 21h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Транскрибировать аудио и видео</h2>
+            <p>
+              Голосовые, аудиофайлы, видео и даже медиассылки переводятся в текст. Пайплайн сначала пробует
+              Groq Whisper API, а при ошибке или лимите автоматически переключается на локальный <code>faster-whisper</code>.
+            </p>
+            <ul class="chip-list">
+              <li>Voice</li>
+              <li>Audio</li>
+              <li>Video</li>
+              <li>Groq</li>
+              <li>faster-whisper</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка конвертации видео">
+                <rect x="4" y="5" width="16" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/>
+                <path d="m10 9 5 3-5 3V9Z" fill="currentColor"/>
+                <path d="M8 3.5v3M16 3.5v3M8 17.5v3M16 17.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Конвертировать видео</h2>
+            <p>
+              Видео, видеозаметки и GIF-анимации можно перекодировать через <code>ffmpeg</code>. Реально поддерживаются
+              форматы <code>MP4</code>, <code>MKV</code>, <code>AVI</code> и <code>WEBM</code>.
+            </p>
+            <ul class="chip-list">
+              <li>MP4</li>
+              <li>MKV</li>
+              <li>AVI</li>
+              <li>WEBM</li>
+              <li>ffmpeg</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка извлечения аудио">
+                <path d="M6 7v10M10.5 9.5l8-3v11l-8-3v-5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M4 10.5c-1.2.9-2 2.3-2 3.8S2.8 17.2 4 18.1M20 10.5c1.2.9 2 2.3 2 3.8s-.8 2.9-2 3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Извлечь аудио из видео</h2>
+            <p>
+              Если нужен только звук, бот забирает аудиодорожку из видеофайла и сохраняет её в нужный формат.
+              На выходе доступны <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> и <code>WAV</code>.
+            </p>
+            <ul class="chip-list">
+              <li>MP3</li>
+              <li>OGG</li>
+              <li>M4A</li>
+              <li>FLAC</li>
+              <li>WAV</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка сжатия файла">
+                <path d="M7 4H4v3M20 7V4h-3M17 20h3v-3M4 17v3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 9h6v6H9z" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <h2>Сжать файл</h2>
+            <p>
+              Для фото, видео и аудио используется медиасжатие, а для документов, архивов, PDF, DOCX, TXT, CSV и
+              бинарных файлов — ZIP-упаковка с тремя уровнями. Это одна из самых практичных функций Telegram-бота для файлов.
+            </p>
+            <ul class="chip-list">
+              <li>ffmpeg</li>
+              <li>Pillow</li>
+              <li>ZIP high</li>
+              <li>ZIP med</li>
+              <li>ZIP low</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка конвертации аудио">
+                <path d="M15.5 5v8.8a3.2 3.2 0 1 1-1.8-2.88V7.2l5.8-1.7v8.3a3.2 3.2 0 1 1-1.8-2.88V4.2l-2.2.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M3 8h6M3 12h4M3 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Конвертировать аудио</h2>
+            <p>
+              Аудио и голосовые сообщения можно быстро перевести в другой формат. В проекте заданы
+              <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> и <code>WAV</code> без внешних GUI-программ.
+            </p>
+            <ul class="chip-list">
+              <li>MP3</li>
+              <li>OGG</li>
+              <li>M4A</li>
+              <li>FLAC</li>
+              <li>WAV</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка конвертации изображения">
+                <rect x="4" y="5" width="16" height="14" rx="2.8" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="9" cy="10" r="1.5" fill="currentColor"/>
+                <path d="m7 16 3.4-3.4a1.8 1.8 0 0 1 2.5 0L17 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h2>Конвертировать изображение</h2>
+            <p>
+              Фото, статичные стикеры и видеостикеры можно переводить между <code>JPG</code>, <code>PNG</code>,
+              <code>WEBP</code> и <code>BMP</code>. Для сложных входов бот сначала пробует Pillow, а затем fallback через <code>ffmpeg</code>.
+            </p>
+            <ul class="chip-list">
+              <li>JPG</li>
+              <li>PNG</li>
+              <li>WEBP</li>
+              <li>BMP</li>
+              <li>Pillow</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка изменения размера">
+                <path d="M8 4H4v4M20 8V4h-4M16 20h4v-4M4 16v4h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 9h6v6H9z" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <h2>Изменить размер изображения</h2>
+            <p>
+              Для фото и документов-изображений есть быстрые сценарии <code>-10%</code>, <code>-20%</code>,
+              <code>-30%</code> и <code>-50%</code>. На платных тарифах доступен ещё и ввод собственного максимального размера стороны.
+            </p>
+            <ul class="chip-list">
+              <li>Фото</li>
+              <li>JPG</li>
+              <li>PNG</li>
+              <li>WEBP</li>
+              <li>BMP</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка перевода в PDF">
+                <path d="M7 3.5h7.5L19 8v12.5H7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M14 3.5V8h5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M9 14h6M9 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Перевести в PDF</h2>
+            <p>
+              Фото конвертируются в PDF через Pillow, а <code>TXT</code> и <code>DOCX</code> — через LibreOffice.
+              Это полезно, когда нужен простой Telegram-бот для PDF без установки редакторов на компьютер.
+            </p>
+            <ul class="chip-list">
+              <li>JPG</li>
+              <li>PNG</li>
+              <li>WEBP</li>
+              <li>BMP</li>
+              <li>TXT</li>
+              <li>DOCX</li>
+              <li>PDF</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка извлечения текста">
+                <path d="M6 5.5h12M6 9.5h12M6 13.5h7M6 17.5h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M17.5 13.5 20 16l-2.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h2>Извлечь текст</h2>
+            <p>
+              Бот вытаскивает текст из <code>PDF</code>, <code>TXT</code>, <code>CSV</code> и <code>DOCX</code>.
+              Для PDF используется <code>pypdf</code>, для DOCX — разбор XML внутри файла, а текстовые документы читаются напрямую.
+            </p>
+            <ul class="chip-list">
+              <li>PDF</li>
+              <li>TXT</li>
+              <li>CSV</li>
+              <li>DOCX</li>
+              <li>pypdf</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка хэша файла">
+                <path d="M6 8h12M6 12h12M6 16h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M8 5 6 19M18 5l-2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Посчитать хэш файла</h2>
+            <p>
+              Для любого загруженного файла бот считает контрольные суммы <code>MD5</code>, <code>SHA1</code>,
+              <code>SHA256</code> и <code>CRC32</code>. Удобно для проверки целостности архива, документа, аудио или видео.
+            </p>
+            <ul class="chip-list">
+              <li>MD5</li>
+              <li>SHA1</li>
+              <li>SHA256</li>
+              <li>CRC32</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка хэша текста">
+                <path d="M7 6.5h10M7 11.5h10M7 16.5h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="17.5" cy="16.5" r="2.5" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <h2>Посчитать хэш текста</h2>
+            <p>
+              Обычный текст без файла тоже можно хэшировать прямо в Telegram. В ответ бот возвращает тот же набор:
+              <code>MD5</code>, <code>SHA1</code>, <code>SHA256</code> и <code>CRC32</code>.
+            </p>
+            <ul class="chip-list">
+              <li>Текст</li>
+              <li>MD5</li>
+              <li>SHA1</li>
+              <li>SHA256</li>
+              <li>CRC32</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка QR-кода">
+                <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M16 14h2v2h-2zM18 16h2v4h-4v-2" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <h2>Создать QR-код</h2>
+            <p>
+              Любую ссылку или текст можно превратить в PNG с QR-кодом. Это работает для обычных URL, медиассылок,
+              заметок, коротких инструкций и любых строк, которые пользователь отправил в чат.
+            </p>
+            <ul class="chip-list">
+              <li>URL</li>
+              <li>Текст</li>
+              <li>PNG</li>
+              <li>qrcode</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка сокращения ссылки">
+                <path d="M9.5 14.5 14.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M8 16.5H6.5a3 3 0 0 1 0-6H9M15 7.5h2.5a3 3 0 1 1 0 6H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <h2>Сократить ссылку</h2>
+            <p>
+              Если в сообщении есть URL, бот может пропустить его через TinyURL и вернуть короткий адрес. Это отдельное
+              действие для распознанных ссылок и обычного текста с <code>http</code>.
+            </p>
+            <ul class="chip-list">
+              <li>TinyURL</li>
+              <li>URL</li>
+              <li>Текст</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <span class="icon-shell">
+              <svg viewBox="0 0 24 24" fill="none" role="img" aria-label="Иконка облачной выгрузки">
+                <path d="M7 18.5h9.5a3.5 3.5 0 0 0 .5-7A5 5 0 0 0 7.8 9a4 4 0 0 0-.8 9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M12 10.5v7M9.5 13l2.5-2.5 2.5 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <h2>Загрузить файл в облако</h2>
+            <p>
+              Любой файл можно вручную выгрузить на Litterbox или Pixeldrain. Дополнительно бот сам умеет отдавать
+              ссылку вместо вложения, если готовый результат не проходит лимит Telegram по размеру.
+            </p>
+            <ul class="chip-list">
+              <li>Litterbox</li>
+              <li>Pixeldrain</li>
+              <li>50 МБ</li>
+              <li>1 ГБ</li>
+              <li>20 ГБ</li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="note-card" aria-label="Технические особенности проекта">
+          <strong>Что выделяет проект по коду:</strong> ToolboxBot не просто выполняет отдельные операции, а строит
+          вокруг них полноценный продакшен-пайплайн.
+          <div class="note-grid">
+            <p><strong>Динамическое меню по типу контента.</strong> Бот распознаёт ссылку, фото, документ, аудио, видео, текст и стикеры, а затем показывает только допустимые действия.</p>
+            <p><strong>Очередь задач с приоритетом.</strong> В проекте есть worker pool, rate limit, дедупликация одинаковых URL-задач и приоритеты для Lite/Pro.</p>
+            <p><strong>YouTube cookies через Playwright.</strong> Админ может загрузить <code>browser_state.json</code>, а бот прогреет и регионализует cookies для <code>yt-dlp</code>.</p>
+            <p><strong>Безопасность и чистка.</strong> Логи санитизируются, секреты можно брать из keyring ОС, а временные директории удаляются после обработки результата.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">Пользовательский флоу</p>
+          <h2>Как работает ToolboxBot</h2>
+          <p>
+            Пользовательский сценарий в коде очень прямой: бот получает контент, определяет тип, показывает встроенную
+            клавиатуру действий, при необходимости запрашивает качество, формат, размер или уровень сжатия и запускает
+            задачу в очереди.
+          </p>
+        </div>
+
+        <ol class="workflow-list">
+          <li>
+            <span class="step-number">1</span>
+            <div>
+              <h3>Запустите бота и откройте базовые команды</h3>
+              <p>
+                Точка входа — команда <code>/start</code>. Для справки есть <code>/help</code> и <code>/features</code>,
+                а состояние тарифа и остатка действий показывает <code>/status</code>.
+              </p>
+              <div class="chip-list" aria-label="Команды запуска">
+                <span class="command-chip">/start</span>
+                <span class="command-chip">/help</span>
+                <span class="command-chip">/features</span>
+                <span class="command-chip">/status</span>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <span class="step-number">2</span>
+            <div>
+              <h3>Отправьте ссылку, файл, голосовое или текст</h3>
+              <p>
+                В коде поддерживаются сообщения типов <code>text</code>, <code>photo</code>, <code>video</code>,
+                <code>audio</code>, <code>voice</code>, <code>document</code>, <code>animation</code>,
+                <code>sticker</code> и <code>video_note</code>. Для документов бот дополнительно определяет подтипы:
+                видео, аудио, изображение, PDF, текстовый документ или архив.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="step-number">3</span>
+            <div>
+              <h3>Получите только те действия, которые подходят этому контенту</h3>
+              <p>
+                Для YouTube-ссылки появятся кнопки скачивания видео, аудио, транскрибации, QR и сокращения URL.
+                Для фото будут доступны сжатие, resize, конвертация, PDF, хэш и выгрузка, а для текста — QR, хэш текста и сокращение ссылок.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="step-number">4</span>
+            <div>
+              <h3>Если нужно, выберите качество, формат или параметры</h3>
+              <p>
+                Видео по ссылке получает экран выбора качества, а конвертация и извлечение аудио показывают список форматов.
+                Для сжатия есть уровни <code>high</code>, <code>med</code>, <code>low</code>, а resize предлагает фиксированные проценты и премиум-режим с собственным размером.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <span class="step-number">5</span>
+            <div>
+              <h3>Задача идёт в очередь, а вы видите статус и результат</h3>
+              <p>
+                В процессе бот меняет статусы на <code>downloading</code>, <code>converting</code>,
+                <code>compressing</code>, <code>transcribing</code>, <code>uploading</code> или <code>sending</code>.
+                На выходе приходит либо готовый файл в чат, либо внешняя ссылка, если результат слишком большой для Telegram.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="command-panel">
+          <h2>Реальные команды, которые доступны пользователю</h2>
+          <div class="command-grid">
+            <article class="command-card">
+              <h3><code>/status</code></h3>
+              <p>Показывает текущий тариф, остаток действий и дату окончания подписки, если она активна.</p>
+            </article>
+            <article class="command-card">
+              <h3><code>/buy</code></h3>
+              <p>Открывает покупку подписок Lite и Pro через Telegram Stars. Также работают алиасы <code>/premium</code> и <code>/subscribe</code>.</p>
+            </article>
+            <article class="command-card">
+              <h3><code>/donate</code></h3>
+              <p>Позволяет поддержать проект фиксированной суммой или отправить свой размер доната через Stars.</p>
+            </article>
+            <article class="command-card">
+              <h3><code>/support</code></h3>
+              <p>Открывает форму обратной связи с администраторами. В коде также есть команды <code>/feedback</code> и <code>/contact</code>.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">Поиск и ответы</p>
+          <h2>Часто задаваемые вопросы</h2>
+          <p>
+            FAQ ниже собран только из того, что реально реализовано в проекте: по маршрутам, форматам, лимитам,
+            платным тарифам, внешним выгрузкам и ограничениям самого кода.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <input id="faq-1" type="checkbox">
+            <h3><label for="faq-1">Как скачать видео с YouTube через Telegram-бота?</label></h3>
+            <div class="faq-answer"><div><p>В ToolboxBot достаточно отправить YouTube-ссылку в чат, после чего бот определит тип URL и покажет кнопку скачивания видео. Затем можно выбрать качество, а готовый результат придёт в Telegram как файл или как ссылка, если размер превышает лимит мессенджера.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-2" type="checkbox">
+            <h3><label for="faq-2">Можно ли скачать аудио из видео в MP3, OGG или WAV?</label></h3>
+            <div class="faq-answer"><div><p>Да, код проекта поддерживает скачивание аудио по медиассылке и отдельное извлечение аудиодорожки из загруженного видео. Доступные форматы в action handlers и клавиатурах — MP3, OGG, M4A, FLAC и WAV.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-3" type="checkbox">
+            <h3><label for="faq-3">Как перевести голосовое сообщение или аудио в текст?</label></h3>
+            <div class="faq-answer"><div><p>Бот умеет транскрибировать голосовые, аудиофайлы, видео и медиассылки. По коду сначала пробуется Groq Whisper API, а если он недоступен, превышен лимит или случилась ошибка, бот переключается на локальный faster-whisper.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-4" type="checkbox">
+            <h3><label for="faq-4">Какие форматы файлов поддерживает бот?</label></h3>
+            <div class="faq-answer"><div><p>В репозитории явно описаны видеоформаты MP4, MKV, AVI, MOV, WMV, FLV, WEBM, M4V, TS и 3GP; аудио MP3, OGG, M4A, FLAC, WAV, AAC, OPUS и WMA; изображения JPG, PNG, GIF, WEBP, BMP, TIFF и HEIC. Для документов бот распознаёт PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, CSV и RTF, а также архивы ZIP, RAR, 7Z, TAR, GZ, BZ2 и XZ.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-5" type="checkbox">
+            <h3><label for="faq-5">Можно ли сжать видео, фото, аудио или ZIP прямо в Telegram?</label></h3>
+            <div class="faq-answer"><div><p>Да, в ToolboxBot есть отдельное действие для сжатия. Медиафайлы обрабатываются через ffmpeg и Pillow, а документы и архивы бот упаковывает в ZIP с уровнями high, med и low.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-6" type="checkbox">
+            <h3><label for="faq-6">Как сделать PDF из фото, TXT или DOCX?</label></h3>
+            <div class="faq-answer"><div><p>Если отправить фото, бот собирает PDF через Pillow. Для TXT и DOCX используется LibreOffice в headless-режиме, поэтому ToolboxBot реально работает как Telegram-бот для перевода документа в PDF.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-7" type="checkbox">
+            <h3><label for="faq-7">Что делать, если файл больше лимита Telegram?</label></h3>
+            <div class="faq-answer"><div><p>В проекте есть отдельный upload service: маленькие файлы отправляются обычным вложением, а крупные можно выгрузить на Litterbox или Pixeldrain. Кроме ручной выгрузки бот ещё и сам умеет возвращать внешнюю ссылку, если итоговый результат не проходит Telegram-лимит.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-8" type="checkbox">
+            <h3><label for="faq-8">Поддерживает ли бот TikTok, Instagram Reels, VK и X/Twitter?</label></h3>
+            <div class="faq-answer"><div><p>Да, эти платформы распознаются напрямую в content detector, как и YouTube, Facebook, Reddit, Twitch, Vimeo, Rutube, Pinterest, SoundCloud и Threads. Для распознанных медиассылок бот показывает действия скачивания, транскрибации, QR-кода и сокращения URL.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-9" type="checkbox">
+            <h3><label for="faq-9">Можно ли скачать прямой эфир или live stream?</label></h3>
+            <div class="faq-answer"><div><p>Нет, прямые трансляции в коде специально блокируются до начала загрузки. Сервис сначала проверяет поле <code>is_live</code> через метаданные <code>yt-dlp</code> и возвращает ошибку, если ссылка ведёт на лайв.</p></div></div>
+          </div>
+
+          <div class="faq-item">
+            <input id="faq-10" type="checkbox">
+            <h3><label for="faq-10">Есть ли бесплатный режим и платные тарифы Lite или Pro?</label></h3>
+            <div class="faq-answer"><div><p>Да, в репозитории есть монетизация, покупки через Telegram Stars и тарифы Free, Lite и Pro. Команда <code>/buy</code> оформляет подписку, а <code>/status</code> показывает текущий тариф, остаток действий и срок действия оплаченного плана.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cta">
+      <div class="container">
+        <div class="cta-card">
+          <h2>Попробуйте ToolboxBot в своём Telegram уже сейчас</h2>
+          <p>
+            Отправьте ссылку, фото, документ или голосовое сообщение и посмотрите, какие действия бот предложит именно для этого контента.
+          </p>
+          <div class="button-row">
+            <a class="button button-primary" href="https://t.me/YOUR_BOT_USERNAME" rel="noopener noreferrer">Открыть в Telegram →</a>
+          </div>
+          <p class="microcopy">Без регистрации, без установки.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="#top" aria-label="ToolboxBot — перейти к началу">
+            <span class="brand-mark">
+              <svg viewBox="0 0 24 24" fill="none" aria-label="Логотип ToolboxBot в футере" role="img">
+                <path d="M4 8.5 12 4l8 4.5-8 4.5L4 8.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M6.5 10.4V15.5L12 19l5.5-3.5v-5.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 9v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span>ToolboxBot</span>
+          </a>
+          <p class="footer-copy">© <span id="current-year">2026</span> ToolboxBot</p>
+        </div>
+        <nav class="footer-nav" aria-label="Ссылки футера">
+          <a href="https://t.me/YOUR_BOT_USERNAME" rel="noopener noreferrer">Telegram</a>
+          <a href="https://github.com/ViacheslavChernyshov/toolboxbot" rel="noopener noreferrer">GitHub</a>
+          <a href="#privacy">Политика конфиденциальности</a>
+        </nav>
+      </div>
+
+      <div class="footer-grid">
+        <section class="footer-card" aria-labelledby="stack-title">
+          <h2 id="stack-title">Стек бота</h2>
+          <p>
+            Python 3.11, aiogram 3, yt-dlp, ffmpeg, Pillow, pypdf, qrcode, Groq, faster-whisper, SQLite, aiohttp,
+            Loguru, Playwright и keyring. В Dockerfile также явно настроены Node.js и Chromium для Playwright-сценариев.
+          </p>
+        </section>
+
+        <section class="footer-card" id="privacy" aria-labelledby="privacy-title">
+          <h2 id="privacy-title">Политика конфиденциальности</h2>
+          <p>
+            По коду проекта входные и выходные файлы складываются во временные каталоги и очищаются после завершения задачи.
+            Это снижает следы обработки на сервере и удерживает рабочее пространство бота в чистом состоянии.
+          </p>
+          <p>
+            Логи в ToolboxBot санитизируются: из них вырезаются токены, ключи, ID, usernames и секреты из URL.
+            Дополнительно проект умеет читать секреты из keyring операционной системы, а не только из <code>.env</code>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const yearNode = document.getElementById('current-year');
+    if (yearNode) {
+      yearNode.textContent = String(new Date().getFullYear());
+    }
+
+    const navLinks = Array.from(document.querySelectorAll('.nav a'));
+    const sections = navLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
+
+    if ('IntersectionObserver' in window && navLinks.length && sections.length) {
+      const linkById = new Map(navLinks.map((link) => [link.getAttribute('href')?.slice(1), link]));
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visible || !visible.target.id) {
+          return;
+        }
+
+        navLinks.forEach((link) => link.classList.remove('is-active'));
+        const activeLink = linkById.get(visible.target.id);
+        if (activeLink) {
+          activeLink.classList.add('is-active');
+        }
+      }, {
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0.2, 0.45, 0.7]
+      });
+
+      sections.forEach((section) => observer.observe(section));
+    }
+  </script>
+</body>
+</html>
+

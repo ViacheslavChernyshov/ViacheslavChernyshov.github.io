@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Sitemap: https://ViacheslavChernyshov.github.io/toolboxbot/sitemap.xml
+
