@@ -226,7 +226,7 @@
     }
 
     h1 {
-      font-size: clamp(2.4rem, 5vw, 4.35rem);
+      font-size: clamp(2.35rem, 4.4vw, 4rem);
       max-width: none;
       text-wrap: pretty;
     }
@@ -234,7 +234,7 @@
     .hero p {
       margin: 22px 0 0;
       color: var(--muted);
-      max-width: 60ch;
+      max-width: 58ch;
       font-size: 1.02rem;
       line-height: 1.62;
       overflow-wrap: anywhere;
@@ -271,13 +271,13 @@
 
     .stats {
       display: grid;
-      gap: 12px;
+      gap: 14px;
       margin-top: 32px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .stat {
-      padding: 18px;
+      padding: 16px 18px;
       border-radius: 18px;
       border: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.03);
@@ -291,7 +291,7 @@
 
     .hero-panel {
       width: 100%;
-      max-width: 560px;
+      max-width: 520px;
       margin-left: auto;
       padding: 28px;
       border-radius: 28px;
@@ -373,6 +373,10 @@
         rgba(255, 255, 255, 0.03);
     }
 
+    .signal-stack-copy p {
+      margin-top: 12px;
+    }
+
     .signal-grid {
       display: grid;
       gap: 16px;
@@ -380,8 +384,8 @@
     }
 
     .signal-node {
-      min-height: 170px;
-      padding: 20px;
+      min-height: 148px;
+      padding: 18px;
       background: rgba(255, 255, 255, 0.04);
     }
 
@@ -643,9 +647,9 @@
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1.04fr) minmax(460px, 0.96fr);
+        grid-template-columns: minmax(0, 1.16fr) minmax(420px, 0.84fr);
         align-items: center;
-        gap: 48px;
+        gap: 40px;
       }
 
       .signal-row {
@@ -653,7 +657,11 @@
       }
 
       .signal-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .projects-grid,
@@ -673,7 +681,11 @@
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1.08fr) minmax(500px, 0.92fr);
+        grid-template-columns: minmax(0, 1.22fr) minmax(400px, 0.78fr);
+      }
+
+      .signal-node:last-child {
+        grid-column: 1 / -1;
       }
 
       .section {
@@ -719,10 +731,10 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Домашняя страница инженерных проектов</p>
-          <h1>Публичная витрина проектов, сайтов и технических материалов</h1>
+          <h1>Публичная витрина проектов и технических материалов</h1>
           <p>
-            Здесь собраны проекты Viacheslav Chernyshov. Публичные материалы, демо и GitHub Pages остаются открытыми,
-            а прикладные или рабочие репозитории могут жить отдельно и оставаться закрытыми.
+            Здесь собраны публичные страницы проектов Viacheslav Chernyshov: лендинги, GitHub Pages, демо и инженерные материалы.
+            Рабочие приложения и приватные репозитории при этом могут оставаться закрытыми.
           </p>
           <div class="button-row">
             <a class="button button-primary" href="#projects">Смотреть проекты</a>
@@ -732,19 +744,19 @@
           <div class="stats" aria-label="Краткая статистика">
             <div class="stat">
               <strong>2</strong>
-              <span>проекта уже на витрине</span>
+              <span>проекта на витрине</span>
             </div>
             <div class="stat">
               <strong>GitHub Pages</strong>
-              <span>для публичных страниц и демо</span>
+              <span>публичные страницы и демо</span>
             </div>
             <div class="stat">
               <strong>Private + Public</strong>
               <span>код отдельно, сайт отдельно</span>
             </div>
             <div class="stat">
-              <strong>Расширяемо</strong>
-              <span>новые проекты будем добавлять сюда</span>
+              <strong>Каталог растёт</strong>
+              <span>новые проекты добавляются сюда</span>
             </div>
           </div>
         </div>
@@ -776,8 +788,10 @@
             </div>
 
             <div class="signal-stack">
-              <strong>Нейтральная схема публикации</strong>
-              <p>Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.</p>
+              <div class="signal-stack-copy">
+                <strong>Нейтральная схема публикации</strong>
+                <p>Один публичный сайт собирает каталог проектов, а конкретные приложения и рабочие репозитории могут оставаться закрытыми.</p>
+              </div>
               <div class="signal-grid">
                 <div class="signal-node">
                   <strong>Projects</strong>
