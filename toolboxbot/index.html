@@ -764,24 +764,29 @@
       display: grid;
       gap: 24px;
       align-items: center;
+      justify-content: center;
     }
 
     .cta-copy {
       display: grid;
       gap: 0;
       align-content: start;
+      max-width: 560px;
     }
 
     .cta-panel {
       display: grid;
       gap: 14px;
       align-content: start;
+      width: 100%;
+      max-width: 560px;
     }
 
     .cta-badges {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
+      width: 100%;
     }
 
     .cta-badge {
@@ -1455,7 +1460,7 @@
     }
 
     .cta-grid {
-      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.9fr);
+      grid-template-columns: minmax(320px, 560px) minmax(320px, 560px);
       gap: 32px;
     }
 
