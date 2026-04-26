@@ -501,6 +501,8 @@
     .feature-card {
       position: relative;
       display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      align-items: start;
       gap: 14px;
       padding: 22px;
       border-radius: var(--radius);
@@ -545,7 +547,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin: 0;
+      margin: auto 0 0;
       padding: 0;
       list-style: none;
     }
@@ -1316,6 +1318,13 @@
       border-radius: 28px;
     }
 
+    .command-card,
+    .footer-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .icon-shell {
       border-radius: 18px;
       background: rgba(47, 118, 255, 0.08);
@@ -1756,7 +1765,8 @@
             <p>
               Из медиассылки можно быстро забрать только аудиодорожку и сразу выбрать удобный формат без лишних
               шагов и сторонних конвертеров. Для пользователя доступны <code>MP3</code>, <code>OGG</code>,
-              <code>M4A</code>, <code>FLAC</code> и <code>WAV</code>.
+              <code>M4A</code>, <code>FLAC</code> и <code>WAV</code>, чтобы сохранить дорожку в том виде,
+              который удобен для прослушивания, пересылки или дальнейшей работы.
             </p>
             <ul class="chip-list">
               <li>MP3</li>
@@ -2598,7 +2608,7 @@
           ],
           cardBodies: [
             "Завантажуйте відео з YouTube, TikTok, Instagram Reels, VK, X/Twitter і Facebook прямо в Telegram. Бот допомагає швидко зберегти ролик у зручній якості без переходів між сторонніми сайтами й сервісами, а за підтримки джерела можна вибрати роздільну здатність аж до 8K.",
-            "Із медіапосилання можна забрати лише аудіодоріжку й одразу вибрати зручний формат. Для користувача доступні <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> та <code>WAV</code>.",
+            "Із медіапосилання можна швидко забрати лише аудіодоріжку й одразу вибрати зручний формат без зайвих кроків і сторонніх конвертерів. Для користувача доступні <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> та <code>WAV</code>, щоб зберегти доріжку у вигляді, зручному для прослуховування, пересилання або подальшої роботи.",
             "Голосові, аудіофайли, відео й навіть медіапосилання переводяться в текст. Це зручно, коли потрібно швидко отримати розшифровку розмови, лекції, інтерв’ю або нотаток.",
             "Відео, відеоповідомлення та GIF-анімації можна швидко перевести в інший формат. Реально підтримуються формати <code>MP4</code>, <code>MKV</code>, <code>AVI</code> і <code>WEBM</code>.",
             "Якщо потрібен лише звук, бот витягує аудіодоріжку з відеофайлу та зберігає її в потрібний формат. На виході доступні <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code> та <code>WAV</code>.",
@@ -2776,7 +2786,7 @@
           ],
           cardBodies: [
             "Download videos from YouTube, TikTok, Instagram Reels, VK, X/Twitter, and Facebook right inside Telegram. The bot helps users save a clip in a suitable quality without hopping between third-party sites and tools, and when the source allows it, resolution can go up to 8K.",
-            "You can pull only the audio track from a media link and choose the target format right away. Users can pick between <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code>.",
+            "You can quickly pull only the audio track from a media link and choose the target format right away without extra steps or outside converters. Users can pick between <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code> so the result fits listening, sharing, or further work.",
             "Voice messages, audio files, video, and even media links can be turned into text. This is useful when someone needs a quick transcript of a conversation, lecture, interview, or voice note.",
             "Videos, video notes, and GIF animations can be quickly converted into another format. The actually supported output formats are <code>MP4</code>, <code>MKV</code>, <code>AVI</code>, and <code>WEBM</code>.",
             "If you only need sound, the bot extracts the audio track from a video file and saves it in the selected format. The output options are <code>MP3</code>, <code>OGG</code>, <code>M4A</code>, <code>FLAC</code>, and <code>WAV</code>.",
