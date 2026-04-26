@@ -760,6 +760,56 @@
       box-shadow: var(--shadow);
     }
 
+    .cta-grid {
+      display: grid;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-copy {
+      display: grid;
+      gap: 0;
+      align-content: start;
+    }
+
+    .cta-panel {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .cta-badges {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cta-badge {
+      padding: 16px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(47, 118, 255, 0.12);
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    }
+
+    .cta-badge strong {
+      display: block;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .cta-badge span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
     .cta-card h2 {
       margin: 0;
       font-size: clamp(1.8rem, 4vw, 3rem);
@@ -1404,6 +1454,17 @@
       animation: float-card 16s ease-in-out infinite;
     }
 
+    .cta-grid {
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.9fr);
+      gap: 32px;
+    }
+
+    html[data-theme="dark"] .cta-badge {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
     .site-footer {
       background: transparent;
       border-top: 0;
@@ -1546,6 +1607,11 @@
 
       .button-row {
         flex-direction: column;
+      }
+
+      .cta-grid,
+      .cta-badges {
+        grid-template-columns: 1fr;
       }
 
       .button {
@@ -2272,14 +2338,35 @@
     <section class="section" id="cta">
       <div class="container">
         <div class="cta-card">
-          <h2>Попробуйте ToolboxBot в своём Telegram уже сейчас</h2>
-          <p>
-            Отправьте ссылку, фото, документ или голосовое сообщение и посмотрите, какие действия бот предложит именно для этого контента.
-          </p>
-          <div class="button-row">
-            <a class="button button-primary" href="https://t.me/ToolBoxMultiBot" rel="noopener noreferrer">Открыть в Telegram →</a>
+          <div class="cta-grid">
+            <div class="cta-copy">
+              <h2>Попробуйте ToolboxBot в своём Telegram уже сейчас</h2>
+              <p>
+                Отправьте ссылку, фото, документ или голосовое сообщение и посмотрите, какие действия бот предложит именно для этого контента.
+              </p>
+              <div class="button-row">
+                <a class="button button-primary" href="https://t.me/ToolBoxMultiBot" rel="noopener noreferrer">Открыть в Telegram →</a>
+              </div>
+              <p class="microcopy">Без регистрации, без установки.</p>
+            </div>
+
+            <div class="cta-panel" aria-label="Почему это удобно">
+              <div class="cta-badges">
+                <div class="cta-badge">
+                  <strong>Один чат</strong>
+                  <span>Видео, аудио, документы и ссылки обрабатываются без переключения между сервисами.</span>
+                </div>
+                <div class="cta-badge">
+                  <strong>Быстрый выбор</strong>
+                  <span>Бот сам подсказывает только те действия, которые подходят именно этому контенту.</span>
+                </div>
+                <div class="cta-badge">
+                  <strong>Готовый результат</strong>
+                  <span>Файл приходит в чат или отдаётся ссылкой, если он слишком большой для Telegram.</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="microcopy">Без регистрации, без установки.</p>
         </div>
       </div>
     </section>
@@ -2434,9 +2521,11 @@
       },
       cta: {
         title: document.querySelector("#cta h2"),
-        text: document.querySelector("#cta .cta-card > p"),
+        text: document.querySelector("#cta .cta-copy > p"),
         button: document.querySelector("#cta .button"),
-        microcopy: document.querySelector("#cta .microcopy")
+        microcopy: document.querySelector("#cta .microcopy"),
+        badgeTitles: Array.from(document.querySelectorAll("#cta .cta-badge strong")),
+        badgeTexts: Array.from(document.querySelectorAll("#cta .cta-badge span"))
       },
       footer: {
         nav: document.querySelector(".footer-nav"),
@@ -2518,7 +2607,9 @@
           title: getText(pageNodes.cta.title),
           text: getText(pageNodes.cta.text),
           button: getText(pageNodes.cta.button),
-          microcopy: getText(pageNodes.cta.microcopy)
+          microcopy: getText(pageNodes.cta.microcopy),
+          badgeTitles: pageNodes.cta.badgeTitles.map(getText),
+          badgeTexts: pageNodes.cta.badgeTexts.map(getText)
         },
         footer: {
           navLinks: pageNodes.footer.navLinks.map(getText),
@@ -2701,7 +2792,13 @@
           title: "Спробуйте ToolboxBot у своєму Telegram уже зараз",
           text: "Надішліть посилання, фото, документ або голосове повідомлення й подивіться, які дії бот запропонує саме для цього контенту.",
           button: "Відкрити в Telegram →",
-          microcopy: "Без реєстрації, без встановлення."
+          microcopy: "Без реєстрації, без встановлення.",
+          badgeTitles: ["Один чат", "Швидкий вибір", "Готовий результат"],
+          badgeTexts: [
+            "Відео, аудіо, документи й посилання обробляються без перемикання між сервісами.",
+            "Бот сам підказує лише ті дії, які справді підходять саме цьому контенту.",
+            "Файл приходить у чат або віддається посиланням, якщо він завеликий для Telegram."
+          ]
         },
         footer: {
           navLinks: ["Telegram", "Усі проєкти", "GitHub профіль", "Політика конфіденційності"],
@@ -2881,7 +2978,13 @@
           title: "Try ToolboxBot in Telegram right now",
           text: "Send a link, photo, document, or voice message and see which actions the bot offers for that specific content.",
           button: "Open in Telegram →",
-          microcopy: "No signup, no installation."
+          microcopy: "No signup, no installation.",
+          badgeTitles: ["One chat", "Smart choices", "Ready result"],
+          badgeTexts: [
+            "Video, audio, documents, and links are handled without jumping between separate services.",
+            "The bot suggests only the actions that actually fit the content you sent.",
+            "The result arrives in chat or is returned as a link when the file is too large for Telegram."
+          ]
         },
         footer: {
           navLinks: ["Telegram", "All projects", "GitHub profile", "Privacy policy"],
@@ -3039,6 +3142,8 @@
       setText(pageNodes.cta.text, locale.cta.text);
       setText(pageNodes.cta.button, locale.cta.button);
       setText(pageNodes.cta.microcopy, locale.cta.microcopy);
+      setTextArray(pageNodes.cta.badgeTitles, locale.cta.badgeTitles);
+      setTextArray(pageNodes.cta.badgeTexts, locale.cta.badgeTexts);
 
       setTextArray(pageNodes.footer.navLinks, locale.footer.navLinks);
       setText(pageNodes.footer.stackTitle, locale.footer.stackTitle);
