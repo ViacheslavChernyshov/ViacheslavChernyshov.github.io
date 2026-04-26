@@ -762,10 +762,8 @@
 
     .cta-grid {
       display: grid;
-      gap: 24px;
-      align-items: center;
-      justify-content: center;
-      max-width: 1180px;
+      gap: 28px;
+      max-width: 1040px;
       margin: 0 auto;
     }
 
@@ -773,29 +771,26 @@
       display: grid;
       gap: 0;
       align-content: start;
-      max-width: 620px;
+      max-width: 760px;
+      justify-items: start;
     }
 
     .cta-panel {
-      display: grid;
-      gap: 10px;
-      align-content: start;
       width: 100%;
-      max-width: 468px;
-      justify-self: end;
     }
 
     .cta-badges {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 12px;
+      justify-content: flex-start;
+      gap: 14px;
       width: 100%;
     }
 
     .cta-badge {
-      width: 148px;
-      padding: 16px 14px;
+      flex: 1 1 220px;
+      min-width: 0;
+      padding: 18px 16px;
       border-radius: 20px;
       border: 1px solid rgba(47, 118, 255, 0.12);
       background: rgba(255, 255, 255, 0.38);
@@ -825,7 +820,7 @@
       font-size: clamp(1.8rem, 4vw, 3rem);
       line-height: 1.06;
       letter-spacing: -0.04em;
-      max-width: 14ch;
+      max-width: 11ch;
     }
 
     .cta-card p {
@@ -1465,8 +1460,7 @@
     }
 
     .cta-grid {
-      grid-template-columns: minmax(360px, 620px) minmax(300px, 468px);
-      gap: 18px;
+      grid-template-columns: 1fr;
     }
 
     html[data-theme="dark"] .cta-badge {
@@ -1619,17 +1613,13 @@
         flex-direction: column;
       }
 
-      .cta-grid,
       .cta-badges {
-        grid-template-columns: 1fr;
-      }
-
-      .cta-badges {
-        justify-content: stretch;
+        flex-direction: column;
       }
 
       .cta-badge {
         width: 100%;
+        flex: 1 1 auto;
       }
 
       .button {
