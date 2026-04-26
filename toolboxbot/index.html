@@ -2064,13 +2064,13 @@
           </article>
         </div>
 
-        <aside class="note-card" aria-label="Технические особенности проекта">
-          <p class="note-lead"><strong>Что выделяет проект по коду:</strong> <span class="note-lead-text">ToolboxBot не просто выполняет отдельные операции, а строит вокруг них полноценный продакшен-пайплайн.</span></p>
+        <aside class="note-card" aria-label="Сильные стороны ToolboxBot">
+          <p class="note-lead"><strong>Почему ToolboxBot удобен в реальном использовании:</strong> <span class="note-lead-text">Это один Telegram-бот, который закрывает частые задачи с медиа и файлами без переключения между сервисами, конвертерами и десктопными программами.</span></p>
           <div class="note-grid">
-            <p><strong>Динамическое меню по типу контента.</strong> Бот распознаёт ссылку, фото, документ, аудио, видео, текст и стикеры, а затем показывает только допустимые действия.</p>
-            <p><strong>Очередь задач с приоритетом.</strong> В проекте есть worker pool, rate limit, дедупликация одинаковых URL-задач и приоритеты для Lite/Pro.</p>
-            <p><strong>YouTube cookies через Playwright.</strong> Админ может загрузить <code>browser_state.json</code>, а бот прогреет и регионализует cookies для <code>yt-dlp</code>.</p>
-            <p><strong>Безопасность и чистка.</strong> Логи санитизируются, секреты можно брать из keyring ОС, а временные директории удаляются после обработки результата.</p>
+            <p><strong>Один бот вместо набора утилит.</strong> Ссылки, видео, аудио, документы, изображения и текст обрабатываются в одном чате без поиска отдельных сайтов под каждую задачу.</p>
+            <p><strong>Меньше ручной рутины.</strong> Пользователю не нужно разбираться в форматах, промежуточных шагах и сторонних конвертерах: бот сам предлагает уместные действия под конкретный контент.</p>
+            <p><strong>Быстрый результат в привычном интерфейсе.</strong> Скачать видео, вытащить аудио, получить текст, PDF, QR-код или ссылку на файл можно прямо внутри Telegram за несколько нажатий.</p>
+            <p><strong>Подходит для повседневных задач.</strong> ToolboxBot полезен, когда нужно быстро сохранить ролик, сжать файл, подготовить документ, распознать речь или отправить большой результат без лишних действий.</p>
           </div>
         </aside>
       </div>
@@ -2615,13 +2615,13 @@
             "Якщо в повідомленні є URL, бот може пропустити його через TinyURL і повернути коротку адресу. Це окрема дія для розпізнаних посилань і звичайного тексту з <code>http</code>.",
             "Будь-який файл можна вручну вивантажити на Litterbox або Pixeldrain. Додатково бот сам уміє віддавати посилання замість вкладення, якщо готовий результат не проходить ліміт Telegram за розміром."
           ],
-          noteLeadStrong: "Що виділяє проєкт у коді:",
-          noteLeadText: "ToolboxBot не просто виконує окремі операції, а вибудовує навколо них повноцінний продакшен-пайплайн.",
+          noteLeadStrong: "Чому ToolboxBot зручний у реальному використанні:",
+          noteLeadText: "Це один Telegram-бот, який закриває часті задачі з медіа та файлами без перемикання між сервісами, конвертерами й десктопними програмами.",
           noteParagraphs: [
-            "<strong>Динамічне меню за типом контенту.</strong> Бот розпізнає посилання, фото, документ, аудіо, відео, текст і стікери, а потім показує лише допустимі дії.",
-            "<strong>Черга задач із пріоритетом.</strong> У проєкті є worker pool, rate limit, дедуплікація однакових URL-задач і пріоритети для Lite/Pro.",
-            "<strong>YouTube cookies через Playwright.</strong> Адмін може завантажити <code>browser_state.json</code>, а бот прогріє й регіоналізує cookies для <code>yt-dlp</code>.",
-            "<strong>Безпека та чистка.</strong> Логи санітизуються, секрети можна брати з keyring ОС, а тимчасові директорії видаляються після обробки результату."
+            "<strong>Один бот замість набору утиліт.</strong> Посилання, відео, аудіо, документи, зображення й текст обробляються в одному чаті без пошуку окремих сайтів під кожну задачу.",
+            "<strong>Менше ручної рутини.</strong> Користувачу не потрібно розбиратися у форматах, проміжних кроках і сторонніх конвертерах: бот сам пропонує доречні дії для конкретного контенту.",
+            "<strong>Швидкий результат у звичному інтерфейсі.</strong> Завантажити відео, витягти аудіо, отримати текст, PDF, QR-код або посилання на файл можна прямо всередині Telegram за кілька натискань.",
+            "<strong>Підходить для щоденних задач.</strong> ToolboxBot корисний, коли потрібно швидко зберегти ролик, стиснути файл, підготувати документ, розпізнати мовлення або надіслати великий результат без зайвих дій."
           ]
         },
         workflow: {
@@ -2712,7 +2712,7 @@
           lang: "Language selection",
           proof: "Project facts",
           heroSvg: "Diagram: Telegram, link and file processing, conversion, transcription, and cloud delivery",
-          note: "Project technical highlights",
+          note: "Why ToolboxBot is practical",
           launchCommands: "Launch commands",
           footerNav: "Footer links"
         },
@@ -2793,13 +2793,13 @@
             "If a message contains a URL, the bot can pass it through TinyURL and return a short link. This is a separate action for detected links and plain text containing <code>http</code>.",
             "Any file can be manually uploaded to Litterbox or Pixeldrain. The bot can also return a link instead of an attachment when the final result exceeds Telegram size limits."
           ],
-          noteLeadStrong: "What stands out in the code:",
-          noteLeadText: "ToolboxBot does not just perform isolated operations, it builds a full production pipeline around them.",
+          noteLeadStrong: "Why ToolboxBot is practical in real use:",
+          noteLeadText: "It gives users one Telegram bot that covers recurring media and file tasks without bouncing between websites, converters, and desktop tools.",
           noteParagraphs: [
-            "<strong>Dynamic menu by content type.</strong> The bot recognizes links, photos, documents, audio, video, text, and stickers, then only shows valid actions.",
-            "<strong>Task queue with priority.</strong> The project includes a worker pool, rate limiting, duplicate URL task suppression, and Lite/Pro priorities.",
-            "<strong>YouTube cookies through Playwright.</strong> An admin can upload <code>browser_state.json</code>, and the bot will warm up and regionalize cookies for <code>yt-dlp</code>.",
-            "<strong>Security and cleanup.</strong> Logs are sanitized, secrets can come from the OS keyring, and temporary directories are removed after processing."
+            "<strong>One bot instead of a pile of utilities.</strong> Links, videos, audio, documents, images, and plain text are handled in one chat without searching for separate tools for every task.",
+            "<strong>Less manual busywork.</strong> Users do not need to figure out formats, intermediate steps, or third-party converters because the bot surfaces the right actions for the content it receives.",
+            "<strong>Fast results in a familiar interface.</strong> Download a video, extract audio, get text, build a PDF, create a QR code, or return a cloud link directly inside Telegram in a few taps.",
+            "<strong>Designed for everyday friction.</strong> ToolboxBot is useful when someone needs to save a clip, compress a file, prepare a document, transcribe speech, or share a large result without extra steps."
           ]
         },
         workflow: {
